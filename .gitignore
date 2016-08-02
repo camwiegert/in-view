@@ -1,0 +1,9 @@
+node_modules/
+npm-debug.log
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+.Spotlight-V100
+.Trashes
+index.html
