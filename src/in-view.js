@@ -1,8 +1,4 @@
-import {
-    getElements,
-    inViewport,
-    throttle
-} from './utils';
+import Registry from './registry';
 
 const initInView = () => {
 
@@ -44,47 +40,6 @@ const initInView = () => {
     return inView;
 
 };
-
-class inViewGroup {
-
-    constructor(elements) {
-        this.current  = [];
-        this.elements = elements;
-        this.handlers = { enter: [], exit: [] };
-    }
-
-    check() {
-        this.elements.forEach(el => {
-            let visible = inViewport(el);
-            let index   = this.current.indexOf(el);
-            if (visible && index < 0) {
-                this.current.push(el);
-                this.emit('enter', el);
-                return;
-            }
-            if (!visible && index > -1) {
-                this.current.splice(index, 1);
-                this.emit('exit', el);
-            }
-        });
-        return this;
-    }
-
-    on(event, handler) {
-        this.handlers[event].push(handler);
-        this.check();
-        return this;
-    }
-
-    emit(event, element) {
-        let length = this.handlers[event].length;
-        while (--length > -1) {
-            this.handlers[event][length](element);
-        }
-        return this;
-    }
-
-}
 
 function inViewport(element, offset = 0) {
     let bounds = element.getBoundingClientRect();
