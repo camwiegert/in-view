@@ -33,7 +33,7 @@ class inViewRegistry {
         if (typeof fn !== 'function') return this;
         this.elements.forEach(el => {
             let index = this.current.indexOf(el);
-            fn.call(this, el) ? this.enter(el, index) : this.exit(el, index);
+            fn(el) ? this.enter(el, index) : this.exit(el, index);
         });
         return this;
     }
