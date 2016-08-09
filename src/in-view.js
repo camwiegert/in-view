@@ -20,7 +20,15 @@ const inView = () => {
         return catalog[selector];
     };
 
+    let checkAll = () => {
+        catalog.history.forEach(selector => {
+            catalog[selector].check(inViewport);
+        });
+        return control;
+    };
+
     control.is = inViewport;
+    control.check = checkAll;
 
     return control;
 
