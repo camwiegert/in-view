@@ -19,6 +19,7 @@ class inViewRegistry {
     }
 
     exit(el) {
+        let index = this.current.indexOf(el);
         this.current.splice(index, 1);
         this.emit('exit', el);
     }
