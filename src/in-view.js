@@ -86,7 +86,7 @@ class inViewGroup {
 
 }
 
-export function inViewport(element, offset = 0) {
+function inViewport(element, offset = 0) {
     let bounds = element.getBoundingClientRect();
     return bounds.bottom > offset
         && bounds.right > offset
@@ -94,7 +94,7 @@ export function inViewport(element, offset = 0) {
         && window.innerHeight - bounds.top > offset;
 }
 
-export function throttle(fn, threshold, context) {
+function throttle(fn, threshold, context) {
     let prev = 0;
     return () => {
         let now  = new Date().getTime();
@@ -105,7 +105,7 @@ export function throttle(fn, threshold, context) {
     };
 }
 
-export function getElements(selector) {
+function getElements(selector) {
     return [].slice.call(document.querySelectorAll(selector));
 }
 
