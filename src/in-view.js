@@ -1,5 +1,4 @@
 import {
-    each,
     getElements,
     inViewport,
     throttle
@@ -20,7 +19,7 @@ const initInView = () => {
     }, 100));
 
     function checkAll() {
-        each(history, selector => {
+        history.forEach(selector => {
             registry[selector].check();
         });
     };
@@ -55,7 +54,7 @@ class inViewGroup {
     }
 
     check() {
-        each(this.elements, el => {
+        this.elements.forEach(el => {
             let visible = inViewport(el);
             let index   = this.current.indexOf(el);
             if (visible && index < 0) {

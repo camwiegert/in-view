@@ -6,12 +6,6 @@ export function inViewport(element, offset = 0) {
         && window.innerHeight - bounds.top > offset;
 }
 
-export function each(arr, fn) {
-    for (let i=0, l=arr.length; i<l; i++) {
-        fn(arr[i], i);
-    }
-}
-
 export function throttle(fn, threshold, context) {
     let prev = 0;
     return () => {
