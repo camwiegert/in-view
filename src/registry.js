@@ -51,12 +51,12 @@ class inViewRegistry {
     }
 
     emit(event, element) {
+        while(this.singles[event].length) {
+            this.singles[event].pop()(element);
+        }
         let length = this.handlers[event].length;
         while (--length > -1) {
             this.handlers[event][length](element);
-        }
-        while(this.singles[event].length) {
-            this.singles[event].pop()(element);
         }
         return this;
     }
