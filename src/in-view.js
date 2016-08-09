@@ -10,6 +10,13 @@ const inView = () => {
 
     let catalog = { history: [] };
 
+    let checkAll = (fn) => {
+        catalog.history.forEach(selector => {
+            catalog[selector].check(fn);
+        });
+        return control;
+    };
+
     let control = (selector) => {
         let elements = getElements(selector);
         if (catalog.history.indexOf(selector) > -1) {
@@ -19,13 +26,6 @@ const inView = () => {
             catalog.history.push(selector);
         }
         return catalog[selector];
-    };
-
-    let checkAll = (fn) => {
-        catalog.history.forEach(selector => {
-            catalog[selector].check(fn);
-        });
-        return control;
     };
 
     ['scroll', 'resize'].forEach(event =>
