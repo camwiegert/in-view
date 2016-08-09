@@ -24,6 +24,7 @@ class inViewRegistry {
     }
 
     check(fn) {
+        if (typeof fn !== 'function') return this;
         this.elements.forEach(el => {
             fn.call(this, el) ? this.enter(el) : this.exit(el);
         });
