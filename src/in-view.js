@@ -1,4 +1,5 @@
 import Registry from './registry';
+import throttle from 'lodash/throttle';
 
 import {
     getElements,
