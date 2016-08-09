@@ -1,6 +1,6 @@
 import Registry from './registry';
 
-const initInView = () => {
+const inView = () => {
 
     const getElements = (selector) =>
         [].slice.call(document.querySelectorAll(selector));
@@ -26,7 +26,7 @@ const initInView = () => {
 
     let catalog = { history: [] };
 
-    let inView = (selector) => {
+    let control = (selector) => {
         let elements = getElements(selector);
         if (catalog.history.indexOf(selector) > -1) {
             catalog[selector].elements = elements;
@@ -37,10 +37,10 @@ const initInView = () => {
         return catalog[selector];
     };
 
-    inView.is = inViewport;
+    control.is = inViewport;
 
-    return inView;
+    return control;
 
 };
 
-export default initInView();
+export default inView();
