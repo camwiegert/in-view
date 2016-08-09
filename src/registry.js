@@ -34,6 +34,7 @@ class inViewRegistry {
 
     on(event, handler) {
         this.handlers[event].push(handler);
+        this.check(handler);
         return this;
     }
 
