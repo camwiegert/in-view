@@ -1,9 +1,9 @@
-export function inViewport(element) {
+export function inViewport(element, offset = 0) {
     let bounds = element.getBoundingClientRect();
-    return bounds.bottom > 0
-        && bounds.right > 0
-        && window.innerWidth - bounds.left > 0
-        && window.innerHeight - bounds.top > 0;
+    return bounds.bottom > offset
+        && bounds.right > offset
+        && window.innerWidth - bounds.left > offset
+        && window.innerHeight - bounds.top > offset;
 }
 
 export function each(arr, fn) {
