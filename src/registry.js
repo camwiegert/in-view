@@ -18,12 +18,14 @@ class inViewRegistry {
     enter(el) {
         this.current.push(el);
         this.emit('enter', el);
+        return this;
     }
 
     exit(el) {
         let index = this.current.indexOf(el);
         this.current.splice(index, 1);
         this.emit('exit', el);
+        return this;
     }
 
     check(fn = inViewport) {
