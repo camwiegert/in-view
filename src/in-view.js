@@ -2,36 +2,20 @@ import Registry from './registry';
 
 const initInView = () => {
 
-    let registry = {},
-        history  = [],
-        tail;
-
-    window.addEventListener('scroll', throttle(() => {
-        clearTimeout(tail);
-        tail = setTimeout(() => {
-            checkAll();
-        }, 120);
-        checkAll();
-    }, 100));
-
-    function checkAll() {
-        history.forEach(selector => {
-            registry[selector].check();
-        });
-    };
+    let selectors = { history: [] };
 
     let inView = (selector) => {
 
         let elements = getElements(selector);
 
-        if (registry.hasOwnProperty(selector)) {
-            registry[selector].elements = elements;
+        if (selectors.history.indexOf(selector) > -1) {
+            selectors[selector].elements = elements;
         } else {
-            registry[selector] = new inViewGroup(elements);
-            history.push(selector);
+            selectors[selector] = new Registry(elements);
+            selectors.history.push(selector);
         }
 
-        return registry[selector];
+        return selectors[selector];
 
     };
 
