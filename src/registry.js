@@ -15,26 +15,26 @@ class inViewRegistry {
         this.handlers = { enter: [], exit: [] };
     }
 
-    enter(el) {
-        let index = this.current.indexOf(el);
-        if (index > -1) return this;
-        this.current.push(el);
-        this.emit('enter', el);
-        return this;
-    }
-
-    exit(el) {
-        let index = this.current.indexOf(el);
-        if (index < 0) return this;
-        this.current.splice(index, 1);
-        this.emit('exit', el);
-        return this;
-    }
-
     check(fn = inViewport) {
         if (typeof fn !== 'function') return this;
         this.elements.forEach(el => {
-            fn(el) ? this.enter(el) : this.exit(el);
+
+            let passes  = fn(el);
+            let index   = this.current.indexOf(el);
+            let current = index > -1;
+            let entered = passes && !current;
+            let exited  = !passes && current;
+
+            if (entered) {
+                this.current.push(el);
+                this.emit('enter', el);
+            }
+
+            if (exited) {
+                this.current.splice(index, 1);
+                this.emit('exit', el);
+            }
+
         });
         return this;
     }
