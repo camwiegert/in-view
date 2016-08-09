@@ -40,7 +40,6 @@ class inViewRegistry {
 
     on(event, handler) {
         this.handlers[event].push(handler);
-        if (event === 'enter') this.check();
         return this;
     }
 
