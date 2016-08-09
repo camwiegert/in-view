@@ -28,6 +28,9 @@ const inView = () => {
         return control;
     };
 
+    ['scroll', 'resize'].forEach(event =>
+        window.addEventListener(event, throttle(e => checkAll(), 100, { trailing: true })));
+
     control.is = inViewport;
     control.check = checkAll;
 
