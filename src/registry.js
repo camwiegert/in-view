@@ -13,6 +13,7 @@ class inViewRegistry {
         this.current  = [];
         this.elements = elements;
         this.handlers = { enter: [], exit: [] };
+        this.singles  = { enter: [], exit: [] };
     }
 
     check(fn = inViewport) {
@@ -44,10 +45,18 @@ class inViewRegistry {
         return this;
     }
 
+    once(event, handler) {
+        this.singles[event].unshift(handler);
+        return this;
+    }
+
     emit(event, element) {
         let length = this.handlers[event].length;
         while (--length > -1) {
             this.handlers[event][length](element);
+        }
+        while(this.singles[event].length) {
+            this.singles[event].pop()(element);
         }
         return this;
     }
