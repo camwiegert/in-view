@@ -2,20 +2,20 @@ import Registry from './registry';
 
 const initInView = () => {
 
-    let selectors = { history: [] };
+    let catalog = { history: [] };
 
     let inView = (selector) => {
 
         let elements = getElements(selector);
 
-        if (selectors.history.indexOf(selector) > -1) {
-            selectors[selector].elements = elements;
+        if (catalog.history.indexOf(selector) > -1) {
+            catalog[selector].elements = elements;
         } else {
-            selectors[selector] = new Registry(elements);
-            selectors.history.push(selector);
+            catalog[selector] = new Registry(elements);
+            catalog.history.push(selector);
         }
 
-        return selectors[selector];
+        return catalog[selector];
 
     };
 
