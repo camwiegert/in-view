@@ -1,3 +1,5 @@
+import { inViewport } from './utils';
+
 /**
 * - Registry -
 *
@@ -24,7 +26,7 @@ class inViewRegistry {
         this.emit('exit', el);
     }
 
-    check(fn) {
+    check(fn = inViewport) {
         if (typeof fn !== 'function') return this;
         this.elements.forEach(el => {
             fn.call(this, el) ? this.enter(el) : this.exit(el);
@@ -34,7 +36,7 @@ class inViewRegistry {
 
     on(event, handler) {
         this.handlers[event].push(handler);
-        this.check(handler);
+        this.check();
         return this;
     }
 
