@@ -8,14 +8,10 @@ import {
 
 const inView = () => {
 
-    let catalog = { history: [] };
+    const threshold = 100;
+    const triggers  = ['scroll', 'resize'];
 
-    let checkAll = (fn) => {
-        catalog.history.forEach(selector => {
-            catalog[selector].check(fn);
-        });
-        return control;
-    };
+    let catalog = { history: [] };
 
     let control = (selector) => {
         let elements = getElements(selector);
@@ -30,8 +26,12 @@ const inView = () => {
 
     control.is = inViewport;
 
-    ['scroll', 'resize'].forEach(event =>
-        window.addEventListener(event, throttle(e => checkAll(), 100, { trailing: true })));
+    triggers.forEach(event =>
+        window.addEventListener(event, throttle(e => {
+            catalog.history.forEach(selector => {
+                catalog[selector].check();
+            });
+        }, threshold, { trailing: true })));
 
     return control;
 
