@@ -28,11 +28,10 @@ const inView = () => {
         return catalog[selector];
     };
 
+    control.is = inViewport;
+
     ['scroll', 'resize'].forEach(event =>
         window.addEventListener(event, throttle(e => checkAll(), 100, { trailing: true })));
-
-    control.is = inViewport;
-    control.check = checkAll;
 
     return control;
 
