@@ -1,10 +1,13 @@
 import Registry from './registry';
 import throttle from 'lodash/throttle';
 
-import {
-    getElements,
-    inViewport
-} from './utils';
+export function inViewport(element, offset = 0) {
+    let bounds = element.getBoundingClientRect();
+    return bounds.bottom > offset
+        && bounds.right > offset
+        && window.innerWidth - bounds.left > offset
+        && window.innerHeight - bounds.top > offset;
+}
 
 const inView = () => {
 
@@ -37,7 +40,7 @@ const inView = () => {
         if (typeof selector !== 'string') return;
 
         // Get an up-to-date list of elements.
-        let elements = getElements(selector);
+        let elements = [].slice.call(document.querySelectorAll(selector));
 
         // If the registry exists, update the elements.
         if (catalog.history.indexOf(selector) > -1) {
