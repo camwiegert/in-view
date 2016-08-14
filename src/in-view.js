@@ -11,21 +11,16 @@ const inView = () => {
     const threshold = 100;
     const triggers  = ['scroll', 'resize'];
 
+    /**
+    * Maintain a hashmap of all registries and a history
+    * of selectors to enumerate.
+    */
     let catalog = { history: [] };
 
-    let control = (selector) => {
-        let elements = getElements(selector);
-        if (catalog.history.indexOf(selector) > -1) {
-            catalog[selector].elements = elements;
-        } else {
-            catalog[selector] = new Registry(elements);
-            catalog.history.push(selector);
-        }
-        return catalog[selector];
-    };
-
-    control.is = inViewport;
-
+    /**
+    * For each trigger event on window, add a listener
+    * which checks each registry.
+    */
     triggers.forEach(event =>
         window.addEventListener(event, throttle(e => {
             catalog.history.forEach(selector => {
@@ -33,6 +28,36 @@ const inView = () => {
             });
         }, threshold, { trailing: true })));
 
+    /**
+    * The main interface. Take a selector and retrieve
+    * the associated registry or create a new one.
+    */
+    let control = (selector) => {
+
+        if (typeof selector !== 'string') return;
+
+        // Get an up-to-date list of elements.
+        let elements = getElements(selector);
+
+        // If the registry exists, update the elements.
+        if (catalog.history.indexOf(selector) > -1) {
+            catalog[selector].elements = elements;
+        }
+
+        // If it doesn't exist, create a new registry.
+        else {
+            catalog[selector] = new Registry(elements);
+            catalog.history.push(selector);
+        }
+
+        return catalog[selector];
+    };
+
+    /**
+    * Add static is() method to main interface
+    * and return it.
+    */
+    control.is = inViewport;
     return control;
 
 };
