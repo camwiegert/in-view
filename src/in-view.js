@@ -12,7 +12,7 @@ export const inViewport = (element, offset = 0) => {
 const inView = () => {
 
     const threshold = 100;
-    const triggers  = ['scroll', 'resize'];
+    const triggers  = ['scroll', 'resize', 'load'];
 
     /**
     * Maintain a hashmap of all registries and a history
