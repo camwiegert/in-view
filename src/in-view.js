@@ -1,13 +1,13 @@
 import Registry from './registry';
 import throttle from 'lodash/throttle';
 
-export function inViewport(element, offset = 0) {
-    let bounds = element.getBoundingClientRect();
-    return bounds.bottom > offset
-        && bounds.right > offset
-        && window.innerWidth - bounds.left > offset
-        && window.innerHeight - bounds.top > offset;
-}
+export const inViewport = (element, offset = 0) => {
+    let { top, right, bottom, left } = element.getBoundingClientRect();
+    return bottom > offset
+        && right > offset
+        && window.innerWidth - left > offset
+        && window.innerHeight - top > offset;
+};
 
 const inView = () => {
 
