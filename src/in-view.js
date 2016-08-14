@@ -2,19 +2,28 @@ import Registry from './registry';
 import throttle from 'lodash/throttle';
 
 export const inViewport = (element, offset = 0, partial = true) => {
-    let { top, right, bottom, left, height, width } = element.getBoundingClientRect();
+
+    let {
+        top,
+        right,
+        bottom,
+        left,
+        height,
+        width
+    } = element.getBoundingClientRect();
 
     if (!partial) {
-        top -= height;
-        right -= width;
+        top    -= height;
+        right  -= width;
         bottom -= height;
-        left -= width;
+        left   -= width;
     }
 
     return bottom > offset
         && right > offset
         && window.innerWidth - left > offset
         && window.innerHeight - top > offset;
+
 };
 
 const inView = () => {
