@@ -8,7 +8,17 @@
     "build": "NODE_ENV=production webpack -p",
     "prepublish": "npm run lint",
     "prebuild": "npm run lint",
-    "lint": "eslint src/**/*.js"
+    "lint": "eslint src/**/*.js",
+    "test": "ava -v"
+  },
+  "ava": {
+    "files": [
+      "test/**/*.js"
+    ],
+    "require": [
+      "babel-register"
+    ],
+    "babel": "inherit"
   },
   "babel": {
     "presets": [
@@ -16,23 +26,25 @@
     ]
   },
   "eslintConfig": {
-      "extends": "eslint:recommended",
-      "env": {
-        "browser": true,
-        "node": true
-      },
-      "parserOptions": {
-        "ecmaVersion": 6,
-        "sourceType": "module"
-      }
+    "extends": "eslint:recommended",
+    "env": {
+      "browser": true,
+      "node": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module"
+    }
   },
   "author": "Cam Wiegert <cam@camwiegert.com>",
   "homepage": "https://camwiegert.github.io/in-view",
   "license": "MIT",
   "devDependencies": {
+    "ava": "^0.16.0",
     "babel-core": "^6.11.4",
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.9.0",
+    "babel-register": "^6.11.6",
     "eslint": "^3.3.1",
     "webpack": "^1.13.1"
   },
