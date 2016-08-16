@@ -33,7 +33,7 @@ const inView = () => {
     * which checks each registry.
     */
     triggers.forEach(event =>
-        window.addEventListener(event, throttle(e => {
+        window.addEventListener(event, throttle(() => {
             selectors.history.forEach(selector => {
                 selectors[selector].check();
             });
