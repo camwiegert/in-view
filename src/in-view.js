@@ -26,7 +26,7 @@ const inView = () => {
     * Maintain a hashmap of all registries and a history
     * of selectors to enumerate.
     */
-    let catalog = { history: [] };
+    let selectors = { history: [] };
 
     /**
     * For each trigger event on window, add a listener
@@ -34,8 +34,8 @@ const inView = () => {
     */
     triggers.forEach(event =>
         window.addEventListener(event, throttle(e => {
-            catalog.history.forEach(selector => {
-                catalog[selector].check();
+            selectors.history.forEach(selector => {
+                selectors[selector].check();
             });
         }, threshold, { trailing: true })));
 
@@ -51,17 +51,17 @@ const inView = () => {
         let elements = [].slice.call(document.querySelectorAll(selector));
 
         // If the registry exists, update the elements.
-        if (catalog.history.indexOf(selector) > -1) {
-            catalog[selector].elements = elements;
+        if (selectors.history.indexOf(selector) > -1) {
+            selectors[selector].elements = elements;
         }
 
         // If it doesn't exist, create a new registry.
         else {
-            catalog[selector] = new Registry(elements);
-            catalog.history.push(selector);
+            selectors[selector] = new Registry(elements);
+            selectors.history.push(selector);
         }
 
-        return catalog[selector];
+        return selectors[selector];
     };
 
     /**
