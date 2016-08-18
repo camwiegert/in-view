@@ -15,3 +15,17 @@ Either download the [latest release](https://raw.githubusercontent.com/camwieger
 ```sh
 npm install --save in-view
 ```
+
+---
+
+## Basic Usage
+
+With in-view, you can register handlers that are called when an element **enters** or **exits** the viewport. Each handler receives one element, the one entering or exiting the viewport, as its only argument.
+
+```js
+inView('.someSelector')
+    .on('enter', doSomething)
+    .on('exit', function(el) {
+        el.style.opacity = 0.5;
+    });
+```
