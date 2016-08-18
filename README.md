@@ -69,6 +69,7 @@ in-view maintains a separate handler registry for each set of elements captured 
 
 > ```js
 > inView.is(document.querySelectorAll('.someSelector')[0]);
+> // => true
 > ```
 
 ### inView.offset(\<integer>)
