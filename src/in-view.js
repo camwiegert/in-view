@@ -7,12 +7,12 @@ import throttle from 'lodash/throttle';
 */
 export const inViewport = (element, offset = 0) => {
 
-    let { t, r, b, l } = element.getBoundingClientRect();
+    let { top, right, bottom, left } = element.getBoundingClientRect();
 
-    return b > offset
-        && r > offset
-        && window.innerWidth - l > offset
-        && window.innerHeight - t > offset;
+    return bottom > offset
+        && right > offset
+        && window.innerWidth - left > offset
+        && window.innerHeight - top > offset;
 
 };
 
