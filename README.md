@@ -29,3 +29,54 @@ inView('.someSelector')
         el.style.opacity = 0.5;
     });
 ```
+
+---
+
+## Methods
+
+in-view maintains a separate handler registry for each set of elements captured with `inView(<selector>)`. Each registry exposes the same four methods.
+
+### inView(\<selector>).on(\<event>, \<handler>)
+> Register a handler to the elements selected by `selector` for `event`. The only events the inView emits are `'enter'` and `'exit'`.
+
+> ```js
+> inView('.someSelector').on('enter', doSomething);
+> ```
+
+### inView(\<selector>).once(\<event>, \<handler>)
+> Register a handler to the elements selected by `selector` for `event`. Handlers registered with `once` will only fire once.
+
+> ```js
+> inView('.someSelector').once('enter', doSomething);
+> ```
+
+### inView(\<selector>).check()
+> Manually check the status of the elements selected by `selector`. By default, all registries are checked on `window`'s `scroll`, `resize`, and `load` events.
+
+> ```js
+> inView('.someSelector').check();
+> ```
+
+### inView(\<selector>).emit(\<event>, \<element>)
+> Manually emit `event` for any single element.
+
+> ```js
+> inView('.someSelector').emit('exit', document.querySelectorAll('.someSelector')[0]);
+> ```
+
+in-view also exposes a couple of top-level methods outside of the scope of registries.
+
+### inView.is(\<element>)
+> Check if `element` is in the viewport.
+
+> ```js
+> inView.is(document.querySelectorAll('.someSelector')[0]);
+> ```
+
+### inView.offset(\<integer>)
+> By default, in-view considers something in viewport if it breaks any edge of the viewport. This can be used to set an offset from that edge. For example, an offset of `100` will consider elements in viewport if they break any edge of the viewport by at least `100` pixels. `integer` can be positive or negative.
+
+> ```js
+> inView.offset(100);
+> inView.offset(-50);
+> ```
