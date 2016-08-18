@@ -34,7 +34,7 @@ inView('.someSelector')
 
 ## Methods
 
-in-view maintains a separate handler registry for each set of elements captured with `inView(<selector>)`. Each registry exposes the same four methods.
+in-view maintains a separate handler registry for each set of elements captured with `inView(<selector>)`. Each registry exposes the same four methods. in-view also exposes two top-level methods. (`is`, `offset`).
 
 ### inView(\<selector>).on(\<event>, \<handler>)
 > Register a handler to the elements selected by `selector` for `event`. The only events the inView emits are `'enter'` and `'exit'`.
@@ -63,8 +63,6 @@ in-view maintains a separate handler registry for each set of elements captured 
 > ```js
 > inView('.someSelector').emit('exit', document.querySelectorAll('.someSelector')[0]);
 > ```
-
-in-view also exposes a couple of top-level methods outside of the scope of registries.
 
 ### inView.is(\<element>)
 > Check if `element` is in the viewport.
