@@ -16,11 +16,10 @@ class inViewRegistry {
         this.singles  = { enter: [], exit: [] };
     }
 
-    check(fn = inViewport) {
-        if (typeof fn !== 'function') return this;
+    check(offset) {
         this.elements.forEach(el => {
 
-            let passes  = fn(el);
+            let passes  = inViewport(el, offset);
             let index   = this.current.indexOf(el);
             let current = index > -1;
             let entered = passes && !current;

@@ -22,6 +22,8 @@ const inView = () => {
     const threshold = 100;
     const triggers  = ['scroll', 'resize', 'load'];
 
+    let offset = 0;
+
     /**
     * Maintain a hashmap of all registries and a history
     * of selectors to enumerate.
@@ -35,7 +37,7 @@ const inView = () => {
     triggers.forEach(event =>
         window.addEventListener(event, throttle(() => {
             selectors.history.forEach(selector => {
-                selectors[selector].check();
+                selectors[selector].check(offset);
             });
         }, threshold, { trailing: true })));
 
@@ -62,6 +64,13 @@ const inView = () => {
         }
 
         return selectors[selector];
+    };
+
+    /**
+    * Expose a method to update the offset.
+    */
+    control.offset = n => {
+        if (typeof n === 'number') offset = n;
     };
 
     /**
