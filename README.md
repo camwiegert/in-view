@@ -25,7 +25,7 @@ With in-view, you can register handlers that are called when an element **enters
 ```js
 inView('.someSelector')
     .on('enter', doSomething)
-    .on('exit', function(el) {
+    .on('exit', el => {
         el.style.opacity = 0.5;
     });
 ```
