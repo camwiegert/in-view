@@ -1,27 +1,31 @@
 import Registry from './registry';
 import throttle from 'lodash/throttle';
 
+/**
+* Check whether an element is in the viewport by
+* more than offset px.
+*/
 export const inViewport = (element, offset = 0) => {
 
-    let {
-        top,
-        right,
-        bottom,
-        left
-    } = element.getBoundingClientRect();
+    let { t, r, b, l } = element.getBoundingClientRect();
 
-    return bottom > offset
-        && right > offset
-        && window.innerWidth - left > offset
-        && window.innerHeight - top > offset;
+    return b > offset
+        && r > offset
+        && window.innerWidth - l > offset
+        && window.innerHeight - t > offset;
 
 };
 
+/**
+* Create and return the inView function.
+*/
 const inView = () => {
 
+    // How often and on what events we should check each registry.
     const threshold = 100;
     const triggers  = ['scroll', 'resize', 'load'];
 
+    // By default, use an offset of 0.
     let offset = 0;
 
     /**
@@ -32,7 +36,7 @@ const inView = () => {
 
     /**
     * For each trigger event on window, add a listener
-    * which checks each registry.
+    * which checks each registry, throttled to threshold.
     */
     triggers.forEach(event =>
         window.addEventListener(event, throttle(() => {
@@ -67,14 +71,15 @@ const inView = () => {
     };
 
     /**
-    * Expose a method to update the offset.
+    * Expose a static offset() method to update
+    * the offset.
     */
     control.offset = n => {
         if (typeof n === 'number') offset = n;
     };
 
     /**
-    * Add static is() method to main interface
+    * Add a static is() method to the main interface
     * and return it.
     */
     control.is = inViewport;
@@ -82,4 +87,5 @@ const inView = () => {
 
 };
 
+// Export a singleton.
 export default inView();
