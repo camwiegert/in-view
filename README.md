@@ -78,3 +78,7 @@ in-view maintains a separate handler registry for each set of elements captured 
 > inView.offset(100);
 > inView.offset(-50);
 > ```
+
+---
+
+**License** MIT
