@@ -71,7 +71,7 @@ const inView = () => {
     };
 
     /**
-    * Expose a static offset() method to update
+    * Add a static offset() method to update
     * the offset.
     */
     control.offset = n => {
