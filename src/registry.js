@@ -16,6 +16,10 @@ class inViewRegistry {
         this.singles  = { enter: [], exit: [] };
     }
 
+    /**
+    * Check each element in the registry, if an element
+    * changes states, fire an event and operate on current.
+    */
     check(offset) {
         this.elements.forEach(el => {
 
@@ -39,16 +43,28 @@ class inViewRegistry {
         return this;
     }
 
+    /**
+    * Register a handler for event, to be fired
+    * for every event.
+    */
     on(event, handler) {
         this.handlers[event].push(handler);
         return this;
     }
 
+    /**
+    * Register a handler for event, to be fired
+    * once and removed.
+    */
     once(event, handler) {
         this.singles[event].unshift(handler);
         return this;
     }
 
+    /**
+    * Emit event on given element. Used mostly
+    * internally, but could be useful for users.
+    */
     emit(event, element) {
         while(this.singles[event].length) {
             this.singles[event].pop()(element);
