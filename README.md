@@ -44,7 +44,7 @@ in-view maintains a separate handler registry for each set of elements captured 
 > ```
 
 ### inView(\<selector>).once(\<event>, \<handler>)
-> Register a handler to the elements selected by `selector` for `event`. Handlers registered with `once` will only fire once.
+> Register a handler to the elements selected by `selector` for `event`. Handlers registered with `once` will only be called once.
 
 > ```js
 > inView('.someSelector').once('enter', doSomething);
