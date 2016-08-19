@@ -4,7 +4,7 @@ Get notified when a DOM element enters or exits the viewport. A small (~2kb gzip
 
 [camwiegert.github.io/in-view](https://camwiegert.github.io/in-view)
 
-![in-view.js](./docs/lib/images/in-view.png)
+![in-view.js](https://camwiegert.github.io/in-view/lib/images/in-view.png)
 
 ---
 
