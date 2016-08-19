@@ -50,20 +50,6 @@ in-view maintains a separate handler registry for each set of elements captured 
 > inView('.someSelector').once('enter', doSomething);
 > ```
 
-### inView(\<selector>).check()
-> Manually check the status of the elements selected by `selector`. By default, all registries are checked on `window`'s `scroll`, `resize`, and `load` events.
-
-> ```js
-> inView('.someSelector').check();
-> ```
-
-### inView(\<selector>).emit(\<event>, \<element>)
-> Manually emit `event` for any single element.
-
-> ```js
-> inView('.someSelector').emit('exit', document.querySelectorAll('.someSelector')[0]);
-> ```
-
 ### inView.is(\<element>)
 > Check if `element` is in the viewport.
 
@@ -78,6 +64,20 @@ in-view maintains a separate handler registry for each set of elements captured 
 > ```js
 > inView.offset(100);
 > inView.offset(-50);
+> ```
+
+### inView(\<selector>).check()
+> Manually check the status of the elements selected by `selector`. By default, all registries are checked on `window`'s `scroll`, `resize`, and `load` events.
+
+> ```js
+> inView('.someSelector').check();
+> ```
+
+### inView(\<selector>).emit(\<event>, \<element>)
+> Manually emit `event` for any single element.
+
+> ```js
+> inView('.someSelector').emit('exit', document.querySelectorAll('.someSelector')[0]);
 > ```
 
 ---
