@@ -53,6 +53,8 @@ a {
     display: flex;
     justify-content: flex-end;
     height: 100%;
+    position: relative;
+    z-index: 1;
 }
 
 .col {
@@ -61,11 +63,15 @@ a {
 }
 
 .col.main {
+    background-color: $color-white;
     left: 0;
+    min-width: 600px;
     padding-right: 5em;
     position: fixed;
     top: 0;
     width: 50%;
+    height: 100%;
+    z-index: 2;
 }
 
 .col.aside {
@@ -74,6 +80,7 @@ a {
     background-size: 1%;
     height: 500%;
     position: relative;
+    z-index: 1;
 }
 
 .dot {
