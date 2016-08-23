@@ -4,8 +4,11 @@
 $fontFamily-mono: "Roboto Mono", "Menlo", monospace;
 $fontFamily-sans: "Rubik", "Helvetica Neue", "Arial", sans-serif;
 
+$color-blue: #0000ff;
 $color-red: #ff0000;
 $color-white: #ffffff;
+
+$easing-outExpo: cubic-bezier(0.190, 1.000, 0.220, 1.000);
 
 *,
 *:after,
@@ -48,6 +51,7 @@ a {
 
 .container {
     display: flex;
+    justify-content: flex-end;
     height: 100%;
 }
 
@@ -57,13 +61,37 @@ a {
 }
 
 .col.main {
+    left: 0;
     padding-right: 5em;
+    position: fixed;
+    top: 0;
+    width: 50%;
 }
 
 .col.aside {
     background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDIwLjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAxMDAgMTAwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6I0VEMjAyNDt9Cjwvc3R5bGU+CjxjaXJjbGUgY2xhc3M9InN0MCIgY3g9IjUwIiBjeT0iNTAiIHI9IjEwIi8+Cjwvc3ZnPgo=');
     background-repeat: repeat;
     background-size: 1%;
+    height: 500%;
+    position: relative;
+}
+
+.dot {
+    background-color: rgba($color-red, 0.75);
+    border-radius: 50%;
+    height: 3rem;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 3rem;
+    -webkit-transition: background-color 0.3s $easing-outExpo, -webkit-transform 0.3s $easing-outExpo;
+            transition: background-color 0.3s $easing-outExpo, transform 0.3s $easing-outExpo;
+}
+
+.dot.in-view {
+    background-color: rgba($color-blue, 0.75);
+    -webkit-transform: scale(2);
+            transform: scale(2);
 }
 
 .btn {
@@ -92,15 +120,15 @@ a {
 .header-subhead {
     font-size: 2rem;
     font-weight: 300;
-    text-transform: uppercase;
     margin-bottom: 2em;
+    text-transform: uppercase;
 }
 
 .header-links {
+    display: flex;
+    list-style: none;
     margin: 0 0 1em 0;
     padding: 0;
-    list-style: none;
-    display: flex;
     li {
         margin-right: 0.5em;
     }
