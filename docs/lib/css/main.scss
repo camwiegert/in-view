@@ -76,6 +76,7 @@ a {
     line-height: 1;
     padding: 1em 1.5em;
     text-transform: uppercase;
+    white-space: nowrap;
     -webkit-transition: background-color 0.075s ease-in-out;
             transition: background-color 0.075s ease-in-out;
     &:hover {
