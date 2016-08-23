@@ -1,4 +1,5 @@
 @import "normalize";
+@import "icons";
 
 $fontFamily-mono: "Roboto Mono", "Menlo", monospace;
 $fontFamily-sans: "Rubik", "Helvetica Neue", "Arial", sans-serif;
@@ -40,6 +41,11 @@ h6 {
     margin: 0 0 1em 0;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .container {
     display: flex;
     height: 100%;
@@ -60,13 +66,44 @@ h6 {
     background-size: 1%;
 }
 
-.headline {
+.btn {
+    background-color: $color-red;
+    border-radius: 4px;
+    color: $color-white;
+    display: inline-block;
+    font-size: 1.4rem;
+    font-weight: 500;
+    line-height: 1;
+    padding: 1em 1.5em;
+    text-transform: uppercase;
+    -webkit-transition: background-color 0.075s ease-in-out;
+            transition: background-color 0.075s ease-in-out;
+    &:hover {
+        background-color: darken($color-red, 5%);
+    }
+}
+
+.header-headline {
     font-size: 4.8rem;
     font-weight: 300;
 }
 
-.subhead {
+.header-subhead {
     font-size: 2rem;
     font-weight: 300;
     text-transform: uppercase;
+    margin-bottom: 2em;
+}
+
+.header-links {
+    margin: 0 0 1em 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    li {
+        margin-right: 0.5em;
+    }
+    .icon {
+        padding-right: 3px;
+    }
 }
