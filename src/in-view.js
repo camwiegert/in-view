@@ -63,7 +63,7 @@ const inView = () => {
 
         // If it doesn't exist, create a new registry.
         else {
-            selectors[selector] = new Registry(elements);
+            selectors[selector] = Registry(elements);
             selectors.history.push(selector);
         }
 
