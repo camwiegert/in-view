@@ -1,7 +1,7 @@
 import inView from '../../../src';
 
-let count = 150;
-let aside = document.querySelector('.aside');
+let count = 200;
+let field = document.querySelector('.field');
 
 const createDot = () => {
     let dot = document.createElement('div');
@@ -12,7 +12,7 @@ const createDot = () => {
 }
 
 while (count--) {
-    aside.appendChild(createDot());
+    field.appendChild(createDot());
 }
 
 inView.offset(100);
