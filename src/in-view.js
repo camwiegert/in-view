@@ -1,5 +1,5 @@
 import Registry from './registry';
-import throttle from 'lodash/throttle';
+import { throttle } from 'lodash';
 
 /**
 * Check whether an element is in the viewport by
@@ -39,11 +39,11 @@ const inView = () => {
     * which checks each registry, throttled to threshold.
     */
     triggers.forEach(event =>
-        window.addEventListener(event, throttle(() => {
+        addEventListener(event, throttle(() => {
             selectors.history.forEach(selector => {
                 selectors[selector].check(offset);
             });
-        }, threshold, { trailing: true })));
+        }, threshold)));
 
     /**
     * The main interface. Take a selector and retrieve
