@@ -54,7 +54,7 @@ in-view maintains a separate handler registry for each set of elements captured 
 > Check if `element` is in the viewport.
 
 > ```js
-> inView.is(document.querySelectorAll('.someSelector')[0]);
+> inView.is(document.querySelector('.someSelector'));
 > // => true
 > ```
 
