@@ -1,6 +1,6 @@
 # in-view.js :eyes:
 
-Get notified when a DOM element enters or exits the viewport. A small (~2kb gzipped), dependency-free, javascript utility for IE9+.
+Get notified when a DOM element enters or exits the viewport. A small (~1.9kb gzipped), dependency-free, javascript utility for IE9+.
 
 [camwiegert.github.io/in-view](https://camwiegert.github.io/in-view)
 
@@ -32,7 +32,7 @@ inView('.someSelector')
 
 ---
 
-## Methods
+## API
 
 in-view maintains a separate handler registry for each set of elements captured with `inView(<selector>)`. Each registry exposes the same four methods. in-view also exposes two top-level methods. (`is`, `offset`).
 
