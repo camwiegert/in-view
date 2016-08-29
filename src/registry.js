@@ -1,4 +1,4 @@
-import { inViewport } from './in-view';
+import { inViewport } from './utils';
 
 /**
 * - Registry -
