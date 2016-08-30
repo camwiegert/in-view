@@ -61,7 +61,9 @@ const inView = () => {
     * the offset.
     */
     control.offset = n => {
-        if (typeof n === 'number') offset = n;
+        return (typeof n === 'number') ?
+            offset = n :
+            offset;
     };
 
     /**
