@@ -15,3 +15,8 @@ test('Registry.on registers one handler to handlers', t => {
     t.true(registry.handlers.enter.length === 2);
 
 });
+
+test('Registry.on returns the registry', t => {
+    let registry = Registry([]);
+    t.deepEqual(registry.on('enter', () => {}), registry);
+});
