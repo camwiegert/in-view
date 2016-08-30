@@ -6,9 +6,9 @@
   "scripts": {
     "start": "NODE_ENV=production webpack -wp",
     "build": "NODE_ENV=production webpack -p",
-    "prepublish": "npm run test",
+    "prepublish": "npm run -s test",
     "lint": "eslint src/**/*.js",
-    "pretest": "npm run lint",
+    "pretest": "npm run -s lint",
     "test": "ava -v",
     "docs": "npm run -s docs-server & npm run -s docs-js & npm run -s docs-css",
     "docs-server": "http-server ./docs -o",
