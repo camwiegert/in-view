@@ -82,4 +82,14 @@ in-view maintains a separate handler registry for each set of elements captured 
 
 ---
 
+## Performance
+
+Any library that watches scroll events runs the risk of degrading page performance. To mitigate this, currently, in-view only registers a single, throttled (maximum once every 100ms) event listener on each of `window`'s `load`, `resize`, and `scroll` events and uses those to run a check on each registry.
+
+### Utilizing IntersectionObserver
+
+There's an emerging browser API, [`IntersectionObserver`](https://wicg.github.io/IntersectionObserver/), that aims to provide developers with a performant way to check the visibility of DOM elements. Going forward, in-view will aim to delegate to `IntersectionObserver` when it's supported, falling back to polling only when necessary.
+
+---
+
 **License** MIT
