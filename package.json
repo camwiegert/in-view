@@ -6,10 +6,11 @@
   "scripts": {
     "start": "NODE_ENV=production webpack -wp",
     "build": "NODE_ENV=production webpack -p",
-    "prepublish": "npm run lint && npm run test",
+    "prepublish": "npm run test",
     "lint": "eslint src/**/*.js",
+    "pretest": "npm run lint",
     "test": "ava -v",
-    "docs-start": "npm run -s docs-server & npm run -s docs-js & npm run -s docs-css",
+    "docs": "npm run -s docs-server & npm run -s docs-js & npm run -s docs-css",
     "docs-server": "http-server ./docs -o",
     "docs-js": "NODE_ENV=production webpack -wp --config ./docs/docs.webpack.config.js",
     "docs-css": "node-sass -w --output-style=compressed ./docs/lib/css/main.scss ./docs/lib/css/main.min.css"
