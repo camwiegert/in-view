@@ -20,7 +20,8 @@
       "test/*js"
     ],
     "require": [
-      "babel-register"
+      "babel-register",
+      "./test/helpers/setup-browser-env.js"
     ],
     "babel": "inherit"
   },
@@ -55,6 +56,7 @@
     "babel-register": "^6.11.6",
     "eslint": "^3.3.1",
     "http-server": "^0.9.0",
+    "jsdom": "^9.4.2",
     "lodash-webpack-plugin": "^0.10.0",
     "node-sass": "^3.8.0",
     "webpack": "^1.13.2"
