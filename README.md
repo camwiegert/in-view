@@ -92,4 +92,4 @@ There's an emerging browser API, [`IntersectionObserver`](https://wicg.github.io
 
 ---
 
-**License** MIT
+**License** [MIT](https://opensource.org/licenses/MIT)
