@@ -4,18 +4,14 @@ import Registry from '../src/registry';
 test('Registry.once registers one handler to singles', t => {
 
     let registry = Registry([]);
-    registry.once('enter', () => {});
 
+    registry.once('enter', () => {});
     t.true(registry.singles.enter.length === 1);
 
-});
+    registry.once('exit', () => {});
+    t.true(registry.singles.exit.length === 1);
 
-test('Registry.once handlers are removed after invocation', t => {
-
-    let registry = Registry([document.body]);
-    registry.once('enter', () => {})
-        .emit('enter', document.body);
-
-    t.true(!registry.singles.enter.length);
+    registry.once('enter', () => {});
+    t.true(registry.singles.enter.length === 2);
 
 });
