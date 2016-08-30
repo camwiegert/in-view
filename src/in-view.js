@@ -1,5 +1,5 @@
 import Registry from './registry';
-import { inViewport } from './utils';
+import { inViewport } from './viewport';
 import { throttle } from 'lodash';
 
 /**
