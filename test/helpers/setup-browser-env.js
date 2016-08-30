@@ -1,9 +1,15 @@
 import { jsdom } from 'jsdom';
 
-global.document = jsdom(`
-    <body></body>
-`);
+global.initBrowserEnv = () => {
 
-global.window = document.defaultView;
-global.navigator = window.navigator;
-global.addEventListener = () => {};
+    global.document = jsdom(`
+        <body></body>
+    `);
+
+    global.window = document.defaultView;
+    global.navigator = window.navigator;
+    global.addEventListener = () => {};
+
+};
+
+initBrowserEnv();
