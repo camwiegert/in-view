@@ -35,8 +35,6 @@ test('Registry.emit removes once handlers', t => {
 });
 
 test('Registry.emit returns the registry', t => {
-
     let registry = Registry([]);
     t.deepEqual(registry.emit('enter', {}), registry);
-
 });
