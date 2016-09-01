@@ -12,7 +12,19 @@ Get notified when a DOM element enters or exits the viewport. A small (~1.9kb gz
 
 ## Installation
 
-Either download the [latest release](https://raw.githubusercontent.com/camwiegert/in-view/master/dist/in-view.min.js) and include it in your markup or install with [npm](http://npmjs.com/package/in-view):
+Either download the [latest release](https://raw.githubusercontent.com/camwiegert/in-view/master/dist/in-view.min.js) and include it in your webpage:
+
+Dev only! (latest):
+```html
+<script src="//rawgit.com/camwiegert/in-view/master/dist/in-view.min.js"></script>
+```
+
+Production (v0.2.0):
+```html
+<script src="//cdn.rawgit.com/camwiegert/in-view/523e7567054ab7111279263b5225a762a57069e1/dist/in-view.min.js"></script>
+```
+
+or install with [npm](http://npmjs.com/package/in-view):
 
 ```sh
 npm install --save in-view
