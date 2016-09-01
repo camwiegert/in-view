@@ -57,11 +57,10 @@
     "eslint": "^3.3.1",
     "http-server": "^0.9.0",
     "jsdom": "^9.4.2",
+    "lodash": "^4.15.0",
     "lodash-webpack-plugin": "^0.10.0",
     "node-sass": "^3.8.0",
+    "weakmap-shim": "^1.1.0",
     "webpack": "^1.13.2"
-  },
-  "dependencies": {
-    "lodash": "^4.15.0"
   }
 }
