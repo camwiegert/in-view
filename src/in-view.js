@@ -51,7 +51,7 @@ const inView = () => {
   * The main interface. Take a selector and retrieve
   * the associated registry or create a new one.
   */
-  let control = (selector, container = window) => {
+  let control = (selector, container = document.body) => {
 
     if (typeof selector !== 'string') return;
 
@@ -95,7 +95,7 @@ const inView = () => {
   /**
    * Add static destroy method
    */
-  control.destroy = (container = window) => {
+  control.destroy = (container = document.body) => {
     if (listeners.has(container)) {
       listeners.delete(container);
       return removeListeners(container);
