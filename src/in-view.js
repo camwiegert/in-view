@@ -20,16 +20,28 @@ const inView = () => {
     */
     let selectors = { history: [] };
 
+    // Check each registry, throttled to threshold.
+    const check = (throttle(() => {
+        selectors.history.forEach(selector => {
+            selectors[selector].check(offset);
+        });
+    }, threshold));
+
     /**
     * For each trigger event on window, add a listener
-    * which checks each registry, throttled to threshold.
+    * which checks each registry.
     */
     triggers.forEach(event =>
-        addEventListener(event, throttle(() => {
-            selectors.history.forEach(selector => {
-                selectors[selector].check(offset);
-            });
-        }, threshold)));
+        addEventListener(event, check));
+
+    /**
+    * If supported, use MutationObserver to watch the
+    * DOM and run checks on mutation.
+    */
+    if (window.MutationObserver) {
+        new MutationObserver(check)
+            .observe(document.body, { attributes: true, childList: true, subtree: true });
+    }
 
     /**
     * The main interface. Take a selector and retrieve
