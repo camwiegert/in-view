@@ -12,7 +12,7 @@ const inView = () => {
     const triggers  = ['scroll', 'resize', 'load'];
 
     // By default, use an offset of 0.
-    let offset = 0;
+    let offset = { top: 0, right: 0, bottom: 0, left: 0 };
 
     /**
     * Maintain a hashmap of all registries and a history
