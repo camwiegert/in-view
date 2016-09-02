@@ -84,6 +84,14 @@ in-view maintains a separate handler registry for each set of elements captured 
 
 ---
 
+## Browser Support
+
+**in-view supports all modern browsers and IE9+.**
+
+As a small caveat, in-view utilizes [MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) to check the visibility of registered elements after a DOM mutation. If that's functionality you need in IE9-10, consider using a [polyfill](https://github.com/webcomponents/webcomponentsjs/blob/master/src/MutationObserver/MutationObserver.js).
+
+---
+
 ## Performance
 
 Any library that watches scroll events runs the risk of degrading page performance. To mitigate this, currently, in-view only registers a single, throttled (maximum once every 100ms) event listener on each of `window`'s `load`, `resize`, and `scroll` events and uses those to run a check on each registry.
