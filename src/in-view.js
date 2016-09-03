@@ -19,6 +19,7 @@ const inView = () => {
     * of selectors to enumerate.
     */
     let selectors = { history: [] };
+    let offset = {};
 
     // Check each registry, throttled to threshold.
     const check = (throttle(() => {
@@ -72,10 +73,15 @@ const inView = () => {
     * Add a static offset() method to update
     * the offset.
     */
-    control.offset = n => {
-        return (typeof n === 'number') ?
-            offset = n :
-            offset;
+    control.offset = o => {
+        const isNum = n =>
+            typeof n === 'number';
+        ['top', 'right', 'bottom', 'left']
+            .forEach(isNum(o) ?
+                dim => offset[dim] = o :
+                dim => isNum(o[dim]) ? offset[dim] = o[dim] : null
+            );
+        return offset;
     };
 
     /**
@@ -83,6 +89,7 @@ const inView = () => {
     * and return it.
     */
     control.is = inViewport;
+    control.offset(0);
     return control;
 
 };
