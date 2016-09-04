@@ -8,11 +8,14 @@ import { throttle } from 'lodash';
 const inView = () => {
 
     // How often and on what events we should check each registry.
-    const threshold = 100;
+    const interval = 100;
     const triggers  = ['scroll', 'resize', 'load'];
 
     // By default, use an offset of 0.
     let offset = 0;
+
+    // By default, use a threshold of 0.
+    let threshold = 0;
 
     /**
     * Maintain a hashmap of all registries and a history
@@ -20,12 +23,12 @@ const inView = () => {
     */
     let selectors = { history: [] };
 
-    // Check each registry, throttled to threshold.
+    // Check each registry, throttled to interval.
     const check = (throttle(() => {
         selectors.history.forEach(selector => {
-            selectors[selector].check(offset);
+            selectors[selector].check(offset, threshold);
         });
-    }, threshold));
+    }, interval));
 
     /**
     * For each trigger event on window, add a listener
@@ -76,6 +79,16 @@ const inView = () => {
         return (typeof n === 'number') ?
             offset = n :
             offset;
+    };
+
+    /**
+    * Add a static threshold() method to update
+    * the threshold.
+    */
+    control.threshold = n => {
+        return (typeof n === 'number') ?
+            threshold = n :
+            threshold;
     };
 
     /**

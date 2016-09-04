@@ -1,5 +1,6 @@
 import test from 'ava';
 import Registry from '../src/registry';
+import { inViewport } from '../src/viewport';
 
 window.innerWidth = 1280;
 window.innerHeight = 700;
@@ -28,7 +29,10 @@ test('Registry.check updates current', t => {
 
     t.true(!registry.current.length);
 
-    registry.check(0);
+    registry.check(0, 0);
+
+    console.log(inViewport(registry.elements[0]));
+
     t.true(registry.current.length === 1);
 
 });
