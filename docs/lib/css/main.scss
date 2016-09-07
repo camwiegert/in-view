@@ -105,8 +105,8 @@ a {
     position: absolute;
     top: 0;
     width: 2.5rem;
-    -webkit-transition: background-color 0.3s $easing-outExpo, -webkit-transform 0.3s $easing-outExpo;
-            transition: background-color 0.3s $easing-outExpo, transform 0.3s $easing-outExpo;
+    -webkit-transition: background-color 0.2s $easing-outExpo, -webkit-transform 0.2s $easing-outExpo;
+            transition: background-color 0.2s $easing-outExpo, transform 0.2s $easing-outExpo;
 }
 
 .dot.in-view {

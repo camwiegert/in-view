@@ -15,7 +15,7 @@ while (count--) {
     field.appendChild(createDot());
 }
 
-inView.offset(100);
+inView.offset(50);
 
 inView('.dot')
     .on('enter', el =>
