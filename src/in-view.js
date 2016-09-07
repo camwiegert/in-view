@@ -7,20 +7,24 @@ import { throttle } from 'lodash';
 */
 const inView = () => {
 
-    // How often and on what events we should check each registry.
+    /**
+    * How often and on what events we should check
+    * each registry.
+    */
     const threshold = 100;
     const triggers  = ['scroll', 'resize', 'load'];
 
-    // By default, use an offset of 0.
-    let offset = 0;
-
     /**
-    * Maintain a hashmap of all registries and a history
-    * of selectors to enumerate.
+    * Maintain a hashmap of all registries, a history
+    * of selectors to enumerate, and an offset object.
     */
     let selectors = { history: [] };
+    let offset = {};
 
-    // Check each registry, throttled to threshold.
+    /**
+    * Check each registry from selector history,
+    * throttled to threshold.
+    */
     const check = (throttle(() => {
         selectors.history.forEach(selector => {
             selectors[selector].check(offset);
@@ -69,20 +73,26 @@ const inView = () => {
     };
 
     /**
-    * Add a static offset() method to update
-    * the offset.
+    * Mutate the offset object with either an object
+    * or a number.
     */
-    control.offset = n => {
-        return (typeof n === 'number') ?
-            offset = n :
-            offset;
+    control.offset = o => {
+        const isNum = n =>
+            typeof n === 'number';
+        ['top', 'right', 'bottom', 'left']
+            .forEach(isNum(o) ?
+                dim => offset[dim] = o :
+                dim => isNum(o[dim]) ? offset[dim] = o[dim] : null
+            );
+        return offset;
     };
 
     /**
-    * Add a static is() method to the main interface
-    * and return it.
+    * Add proxy for inViewport, set defaults, and
+    * return the interface.
     */
     control.is = inViewport;
+    control.offset(0);
     return control;
 
 };

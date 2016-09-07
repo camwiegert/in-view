@@ -4,7 +4,7 @@ import { inViewport } from '../src/viewport';
 window.innerWidth = 1280;
 window.innerHeight = 700;
 
-let stub = {
+const stub = {
     getBoundingClientRect() {
         return {
             bottom: 232,
@@ -17,10 +17,17 @@ let stub = {
     }
 };
 
+const offset = {
+    top: 250,
+    right: 250,
+    bottom: 250,
+    left: 250
+};
+
 test('inViewport returns a boolean', t => {
-    t.true(typeof inViewport(stub) === 'boolean');
+    t.true(typeof inViewport(stub, offset) === 'boolean');
 });
 
 test('inViewport accepts an offset', t => {
-    t.false(inViewport(stub, 250));
+    t.false(inViewport(stub, offset));
 });
