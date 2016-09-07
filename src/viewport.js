@@ -2,24 +2,31 @@
 * Check whether an element is in the viewport by
 * more than offset px.
 */
-export function inViewport (element, offset = 0, threshold = 0) {
+export function inViewport (element, offset, threshold = 0) {
 
     let elementRect = element.getBoundingClientRect();
     let { top, right, bottom, left } = elementRect;
     let elementArea = area(elementRect);
 
-    // Object representing the container rect
-    let windowRect = {
-        top: offset,
-        left: offset,
-        right: window.innerWidth - offset,
-        bottom: window.innerHeight - offset
+    const intersection = {
+        t: bottom,
+        r: window.innerWidth - left,
+        b: window.innerHeight - top,
+        l: right
     };
 
-    return bottom > offset
-        && right > offset
-        && window.innerWidth - left > offset
-        && window.innerHeight - top > offset
+    // Object representing the container rect
+    let windowRect = {
+        top: offset.top,
+        left: offset.left,
+        right: window.innerWidth - offset.right,
+        bottom: window.innerHeight - offset.bottom
+    };
+
+    return intersection.t > offset.top
+        && intersection.r > offset.right
+        && intersection.b > offset.bottom
+        && intersection.l > offset.left
         && (elementArea === 0 
             || areaOfIntersection(elementRect, windowRect) / elementArea >= threshold);
 
