@@ -60,12 +60,21 @@ in-view maintains a separate handler registry for each set of elements captured 
 > // => true
 > ```
 
-### inView.offset(\<integer>)
-> By default, in-view considers something in viewport if it breaks any edge of the viewport. This can be used to set an offset from that edge. For example, an offset of `100` will consider elements in viewport if they break any edge of the viewport by at least `100` pixels. `integer` can be positive or negative.
+### inView.offset(\<offset>)
+> By default, in-view considers something in viewport if it breaks any edge of the viewport. This can be used to set an offset from that edge. For example, an offset of `100` will consider elements in viewport if they break any edge of the viewport by at least `100` pixels. `offset` can be a positive or negative integer or an object.
 
 > ```js
+> //  Global offset
 > inView.offset(100);
 > inView.offset(-50);
+>
+> // Per-direction offset
+> inView.offset({
+>     top: 100,
+>     right: 75,
+>     bottom: 50,
+>     left: 25
+> });
 > ```
 
 ### inView(\<selector>).check()
