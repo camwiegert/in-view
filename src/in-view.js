@@ -65,7 +65,7 @@ const inView = () => {
 
         // If it doesn't exist, create a new registry.
         else {
-            selectors[selector] = Registry(elements);
+            selectors[selector] = Registry(elements, (...args) => control.is(...args));
             selectors.history.push(selector);
         }
 
