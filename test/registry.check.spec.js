@@ -36,6 +36,7 @@ test('Registry.check updates current', t => {
     t.true(!registry.current.length);
 
     registry.check(offset);
+
     t.true(registry.current.length === 1);
 
 });

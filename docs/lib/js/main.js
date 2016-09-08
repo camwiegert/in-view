@@ -16,6 +16,7 @@ while (count--) {
 }
 
 inView.offset(50);
+inView.threshold(0);
 
 inView('.dot')
     .on('enter', el =>
