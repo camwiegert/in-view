@@ -91,7 +91,7 @@ const inView = () => {
     * Add proxy for inViewport, set defaults, and
     * return the interface.
     */
-    control.is = inViewport;
+    control.is = el => inViewport(el, offset);
     control.offset(0);
     return control;
 
