@@ -27,7 +27,7 @@ const inView = () => {
     */
     const check = (throttle(() => {
         selectors.history.forEach(selector => {
-            selectors[selector].check(offset);
+            selectors[selector].check();
         });
     }, threshold));
 
@@ -65,7 +65,7 @@ const inView = () => {
 
         // If it doesn't exist, create a new registry.
         else {
-            selectors[selector] = Registry(elements);
+            selectors[selector] = Registry(elements, offset);
             selectors.history.push(selector);
         }
 
