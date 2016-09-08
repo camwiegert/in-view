@@ -31,11 +31,11 @@ test('Registry.check updates current', t => {
                 top: -1
             };
         }
-    }]);
+    }], offset);
 
     t.true(!registry.current.length);
 
-    registry.check(offset);
+    registry.check();
     t.true(registry.current.length === 1);
 
 });
@@ -53,10 +53,10 @@ test('Registry.check emits enter events', t => {
         }
     };
 
-    let registry = Registry([stub]);
+    let registry = Registry([stub], offset);
 
     registry.on('enter', el => t.deepEqual(el, stub));
-    registry.check(offset);
+    registry.check();
 
 });
 
@@ -73,14 +73,14 @@ test('Registry.check emits exit events', t => {
         }
     };
 
-    let registry = Registry([stub]);
+    let registry = Registry([stub], offset);
 
     registry.on('exit', el => t.deepEqual(el, stub));
-    registry.check(offset);
+    registry.check();
 
 });
 
 test('Registry.check returns the registry', t => {
-    let registry = Registry([]);
-    t.deepEqual(registry.check(offset), registry);
+    let registry = Registry([], offset);
+    t.deepEqual(registry.check(), registry);
 });
