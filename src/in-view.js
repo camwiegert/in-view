@@ -11,8 +11,8 @@ const inView = () => {
     * How often and on what events we should check
     * each registry.
     */
-    const threshold = 100;
-    const triggers  = ['scroll', 'resize', 'load'];
+    const interval = 100;
+    const triggers = ['scroll', 'resize', 'load'];
 
     /**
     * Maintain a hashmap of all registries, a history
@@ -23,13 +23,13 @@ const inView = () => {
 
     /**
     * Check each registry from selector history,
-    * throttled to threshold.
+    * throttled to interval.
     */
-    const check = (throttle(() => {
+    const check = throttle(() => {
         selectors.history.forEach(selector => {
             selectors[selector].check();
         });
-    }, threshold));
+    }, interval);
 
     /**
     * For each trigger event on window, add a listener
