@@ -2,12 +2,14 @@ import test from 'ava';
 import inView from '../src/in-view';
 
 test('inView.offset returns the offset', t => {
-    t.deepEqual(inView.offset(0), {
+    const stub = {
         top: 0,
         right: 0,
         bottom: 0,
         left: 0
-    });
+    };
+    t.deepEqual(inView.offset(0), stub);
+    t.deepEqual(inView.offset(), stub);
 });
 
 test('inView.offset accepts a number', t => {
