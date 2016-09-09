@@ -77,8 +77,8 @@ const inView = () => {
     * or a number.
     */
     control.offset = o => {
-        const isNum = n =>
-            typeof n === 'number';
+        if (o === undefined) return offset;
+        const isNum = n => typeof n === 'number';
         ['top', 'right', 'bottom', 'left']
             .forEach(isNum(o) ?
                 dim => offset[dim] = o :
