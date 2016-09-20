@@ -21,8 +21,11 @@ class inViewRegistry {
     * Check each element in the registry, if an element
     * changes states, fire an event and operate on current.
     */
-    check() {
+    check(recalculate = false) {
         this.elements.forEach(el => {
+            if (recalculate) {
+                el.offset = undefined;
+            }
             let passes  = inViewport(el, this.offset);
             let index   = this.current.indexOf(el);
             let current = index > -1;

@@ -4,18 +4,25 @@
 */
 export function inViewport (element, offset) {
 
-    const { top, right, bottom, left } = element.getBoundingClientRect();
+    const scrollPosition = {
+        top: ((window && window.currentScrollPosition) ? window.currentScrollPosition.top : 0),
+        left: ((window && window.currentScrollPosition) ? window.currentScrollPosition.left : 0)
+    }
 
-    const intersection = {
-        t: bottom,
-        r: window.innerWidth - left,
-        b: window.innerHeight - top,
-        l: right
-    };
+    if (!element.offset) {
+        let { top, right, bottom, left } = element.getBoundingClientRect();
 
-    return intersection.t > offset.top
-        && intersection.r > offset.right
-        && intersection.b > offset.bottom
-        && intersection.l > offset.left;
+        element.offset = {
+            top: top + scrollPosition.top,
+            left: left + scrollPosition.left,
+            right: right,
+            bottom: bottom
+        };
+    }
+
+    return scrollPosition.top + offset.top <= element.offset.top
+        && scrollPosition.top + window.innerHeight - offset.bottom >= element.offset.top
+        && scrollPosition.left + offset.left <= element.offset.left
+        && scrollPosition.left + window.innerWidth - offset.right >= element.offset.left;
 
 }
