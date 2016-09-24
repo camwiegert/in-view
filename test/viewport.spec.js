@@ -1,63 +1,96 @@
 import test                     from 'ava';
 import { example1, example2,
     example3, example4 }        from './helpers/stub-nodes';
-import { inViewport }           from '../src/viewport';
+import { inViewport,
+    getVisiblePixels }          from '../src/viewport';
 
 window.innerWidth  = 1280;
 window.innerHeight = 700;
 
+let title = '';
 
-test('inViewport: #example1 returns a boolean', t => {
-    t.true(typeof inViewport(example1) === 'boolean');
+title = 'inViewport.example1 (full-size elem)';
+test(`${title} takes up whole page`, t => {
+    let pix = getVisiblePixels(example1);
+    t.true(pix.x === 1280);
+    t.true(pix.y === 700);
+});
+test(`${title} w/ offset`, t => {
+    let pix = getVisiblePixels(example1, 800);
+    t.true(pix.x === 480);
+    t.true(pix.y ===   0);
 });
 
-test('inViewport: #example1 accepts an offset', t => {
-    t.false(inViewport(example1, 250));
+title = 'inViewport.example2 (50/50 off top)';
+test(`${title} takes up 50%`, t => {
+    let pix = getVisiblePixels(example2);
+    console.warn('PIX: 2 w/o', pix);
+    t.true(pix.x === 100);
+    t.true(pix.y ===  50);
+});
+test(`${title} w/ offset 40`, t => {
+    let pix = getVisiblePixels(example2, 40);
+    console.warn('PIX: 2 w/o', pix);
+    t.true(pix.x === 100);
+    t.true(pix.y ===  60);
 });
 
-// TEST example2
-// See ascii art of example2
-test('inViewport: #example2 handles parent container w/o offset', t => {
-    t.true(inViewport(example2, example2.parentNode));
-});
+// // See ascii art of example2
+// test('inViewport: #example2 handles parent container w/o offset', t => {
+//     t.true(inViewport(example2, example2.parentNode));
+// });
 
-test('inViewport: #example2 handles parent container w/ offset', t => {
-    t.true(inViewport(example2, example2.parentNode, 40));
-});
+// test('inViewport: #example2 handles parent container w/ offset', t => {
+//     t.true(inViewport(example2, example2.parentNode, 40));
+// });
 
-test('inViewport: #example2 handles parent container w/ too much offset', t => {
-    t.false(inViewport(example2, example2.parentNode, 60));
-});
+// test('getVisiblePixels: #example2 handles parent container w/ offset', t => {
+//     t.true(getVisiblePixels(example2, example2.parentNode, 40));
+// });
+
+// test('inViewport: #example2 handles parent container w/ too much offset', t => {
+//     t.false(inViewport(example2, example2.parentNode, 60));
+// });
 
 
-// TEST example3
-// See ascii art of example3
-test('inViewport: #example3 handles parent container w/o offset', t => {
-    t.true(inViewport(example3, example3.parentNode));
-});
+// // TEST example3
+// // See ascii art of example3
+// test('inViewport: #example3 handles parent container w/o offset', t => {
+//     t.true(inViewport(example3, example3.parentNode));
+// });
 
-test('inViewport: #example3 handles parent container w/ offset', t => {
-    t.true(inViewport(example3, example3.parentNode, 40));
-});
+// test('inViewport: #example3 handles parent container w/ offset', t => {
+//     t.true(inViewport(example3, example3.parentNode, 40));
+// });
 
-test('inViewport: #example3 handles parent container w/ too much offset', t => {
-    t.true(inViewport(example3, example3.parentNode, 60));
-});
+// test('inViewport: #example3 handles parent container w/ too much offset', t => {
+//     t.true(inViewport(example3, example3.parentNode, 60));
+// });
 
-// TEST example4
-// See ascii art of example4
-test('inViewport: #example4 handles parent container w/o offset', t => {
-    t.false(inViewport(example4, example4.parentNode));
-});
+// // TEST example4
+// // See ascii art of example4
+// test('inViewport: #example4 handles parent container w/o offset', t => {
+//     t.false(inViewport(example4, example4.parentNode));
+// });
 
-test('inViewport: #example4 handles parent container w/ offset', t => {
-    t.false(inViewport(example4, example4.parentNode, 40));
-});
+// test('inViewport: #example4 handles parent container w/ offset', t => {
+//     t.false(inViewport(example4, example4.parentNode, 40));
+// });
 
-test('inViewport: #example4 handles parent container w/ too much offset', t => {
-    t.false(inViewport(example4, example3.parentNode, 60));
-});
+// test('inViewport: #example4 handles parent container w/ too much offset', t => {
+//     t.false(inViewport(example4, example3.parentNode, 60));
+// });
 
+
+// title = 'getVisiblePixels: #example2 50/50';
+// test(`${title} off the top w/ container`, t => {
+//     const pix = getVisiblePixels(example2, example2.parentNode);
+//     t.true(pix.y      ===  50);
+//     t.true(pix.x      === 100);
+//     t.true(pix.left   === 100);
+//     t.true(pix.right  === 100);
+//     t.true(pix.bottom === 100);
+// });
 
 // Stub data: example2
 //  A Not-to-scale Example of stub-nodes .example2
