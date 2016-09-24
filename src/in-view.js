@@ -1,16 +1,17 @@
-import Registry                 from './registry';
+import Registry           from './registry';
 import { inViewport }     from './viewport';
-import { throttle }         from 'lodash';
-import    WeakMap                 from 'weakmap-shim';
+import { throttle }       from 'lodash';
+import WeakMap            from 'weakmap-shim';
+
 /**
 * Create and return the inView function.
 */
 const inView = () => {
 
     // How often and on what events we should check each registry.
-    const threshold = 100;
+    const threshold   = 100;
     const triggers    = ['scroll', 'resize', 'load'];
-    const listeners = new WeakMap();
+    const listeners   = new WeakMap();
 
     // By default, use an offset of 0.
     let offset = 0;
@@ -101,7 +102,6 @@ const inView = () => {
             return removeListeners(container);
         }
     }
-
 
     return control;
 
