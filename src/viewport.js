@@ -2,8 +2,8 @@
 * Check whether an element is in the viewport by
 * more than offset px.
 */
-export function inViewport (el, container = window, offset = 0) {
-    var { top, right, bottom, left } = getVisiblePixels(el, container, offset);
+export function inViewport (el, offset = 0) {
+    var { top, right, bottom, left } = getVisiblePixels(el, offset);
 
     return top     - offset > 0
         && bottom  - offset > 0
@@ -11,7 +11,7 @@ export function inViewport (el, container = window, offset = 0) {
         && right   - offset > 0
 }
 
-export function getVisiblePixels(el, offset = 0) {
+export function getVisiblePixels(el) {
     // const containerBox    = container    && container.body     ? getElemBox(container) : null;
     // const containerWidth  = containerBox ? containerBox.width  : container.innerWidth;
     // const containerHeight = containerBox ? containerBox.height : container.innerHeight;
@@ -63,6 +63,6 @@ export function getVisiblePixels(el, offset = 0) {
 
 export function getElemBox(el) {
     if (!el) { return {}; }
-    var { top, right, bottom, left, height, width } = el.getBoundingClientRect();
-    return { top, right, bottom, left, height, width };
+    var box = el.getBoundingClientRect();
+    return box;
 }

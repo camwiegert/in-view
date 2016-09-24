@@ -12,13 +12,16 @@ let title = '';
 title = 'inViewport.example1 (full-size elem)';
 test(`${title} takes up whole page`, t => {
     let pix = getVisiblePixels(example1);
-    t.true(pix.x === 1280);
-    t.true(pix.y === 700);
+    t.true(pix.x === 888);
+    t.true(pix.y === 108);
 });
 test(`${title} w/ offset`, t => {
     let pix = getVisiblePixels(example1, 800);
-    t.true(pix.x === 480);
-    t.true(pix.y ===   0);
+    t.true(inViewport(example1,  50));
+    t.false(inViewport(example1, 900));
+
+    t.true(pix.x  >=  88);
+    t.true(pix.y === 108);
 });
 
 title = 'inViewport.example2 (50/50 off top)';
@@ -28,11 +31,11 @@ test(`${title} takes up 50%`, t => {
     t.true(pix.x === 100);
     t.true(pix.y ===  50);
 });
-test(`${title} w/ offset 40`, t => {
-    let pix = getVisiblePixels(example2, 40);
+test(`${title} w/ offset min 60`, t => {
+    let pix = getVisiblePixels(example2);
     console.warn('PIX: 2 w/o', pix);
     t.true(pix.x === 100);
-    t.true(pix.y ===  60);
+    t.false(pix.y  >=  60);
 });
 
 // // See ascii art of example2
