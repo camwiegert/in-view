@@ -8,19 +8,32 @@ import WeakMap            from 'weakmap-shim';
 */
 const inView = () => {
 
-    // How often and on what events we should check each registry.
+    /**
+    * How often and on what events we should check
+    * each registry.
+    */
+    const interval    = 100;
     const threshold   = 100;
     const triggers    = ['scroll', 'resize', 'load'];
     const listeners   = new WeakMap();
 
-    // By default, use an offset of 0.
-    let offset = 0;
 
     /**
-    * Maintain a hashmap of all registries and a history
-    * of selectors to enumerate.
+    * Maintain a hashmap of all registries, a history
+    * of selectors to enumerate, and an offset object.
     */
     let selectors = { history: [] };
+    let offset = {};
+
+    /**
+    * Check each registry from selector history,
+    * throttled to interval.
+    */
+    const check = throttle(() => {
+        selectors.history.forEach(selector => {
+            selectors[selector].check();
+        });
+    }, interval);
 
     // Const event handlers list, used to add/remove events
     const handlers = triggers.map(event => {
@@ -36,7 +49,7 @@ const inView = () => {
 
     /**
     * For each trigger event on window, add a listener
-    * which checks each registry, throttled to threshold.
+    * which checks each registry.
     */
     const addListeners = (container) => {
         handlers.forEach(({event, handler}) => container.addEventListener(event, handler));
@@ -46,6 +59,18 @@ const inView = () => {
     const removeListeners = (container) => {
         handlers.forEach(({event, handler}) => container.removeEventListener(event, handler));
         return handlers;
+    }
+
+    // triggers.forEach(event =>
+    //     addEventListener(event, check));
+
+    /**
+    * If supported, use MutationObserver to watch the
+    * DOM and run checks on mutation.
+    */
+    if (window.MutationObserver) {
+        new MutationObserver(check)
+            .observe(document.body, { attributes: true, childList: true, subtree: true });
     }
 
     /**
@@ -70,7 +95,7 @@ const inView = () => {
         }
         // If it doesn't exist, create a new registry.
         else {
-            selectors[selector] = Registry(elements);
+            selectors[selector] = Registry(elements, offset);
             selectors.history.push(selector);
         }
 
@@ -78,20 +103,19 @@ const inView = () => {
     };
 
     /**
-    * Add a static offset() method to update
-    * the offset.
+    * Mutate the offset object with either an object
+    * or a number.
     */
-    control.offset = n => {
-        return (typeof n === 'number') ?
-            offset = n :
-            offset;
+    control.offset = o => {
+        if (o === undefined) return offset;
+        const isNum = n => typeof n === 'number';
+        ['top', 'right', 'bottom', 'left']
+            .forEach(isNum(o) ?
+                dim => offset[dim] = o :
+                dim => isNum(o[dim]) ? offset[dim] = o[dim] : null
+            );
+        return offset;
     };
-
-    /**
-    * Add a static is() method to the main interface
-    * and return it.
-    */
-    control.is = inViewport;
 
     /**
      * Add static destroy method
@@ -102,6 +126,13 @@ const inView = () => {
             return removeListeners(container);
         }
     }
+
+    /**
+    * Add proxy for inViewport, set defaults, and
+    * return the interface.
+    */
+    control.is = el => inViewport(el, offset);
+    control.offset(0);
 
     return control;
 

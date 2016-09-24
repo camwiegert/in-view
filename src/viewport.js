@@ -44,7 +44,6 @@ export function getVisiblePixels(el) {
     })(left, width);
     const visibleTop  = ((top, height) => {
         const tDiff = top + height;
-        console.warn('tDiff', tDiff, top, height);
         return tDiff > 0 && tDiff <= height ? tDiff :
                tDiff > height ? height : 0;
     })(top, height)
@@ -54,7 +53,6 @@ export function getVisiblePixels(el) {
                bDiff > height ? height : 0;
     })(bottom, height)
 
-    console.warn('BOX=', JSON.stringify(getElemBox(el)));
     const visible      = {top: visibleTop, bottom: visibleBottom, left: visibleLeft, right: visibleRight};
     visible.y = Math.min(visible.top,  visible.bottom);
     visible.x = Math.min(visible.left, visible.right);

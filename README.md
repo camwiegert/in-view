@@ -4,13 +4,15 @@ Get notified when a DOM element enters or exits the viewport. A small (~1.9kb gz
 
 [camwiegert.github.io/in-view](https://camwiegert.github.io/in-view)
 
+[![Build Status](https://travis-ci.org/camwiegert/in-view.svg?branch=master)](https://travis-ci.org/camwiegert/in-view)
+
 ![in-view.js](https://camwiegert.github.io/in-view/lib/images/in-view.png)
 
 ---
 
 ## Installation
 
-Either download the [latest release](https://raw.githubusercontent.com/camwiegert/in-view/master/dist/in-view.min.js) and include it in your markup or install with [npm](http://npmjs.com/package/in-view):
+Either download the [latest release](https://unpkg.com/in-view/dist/in-view.min.js) and include it in your markup or install with [npm](http://npmjs.com/package/in-view):
 
 ```sh
 npm install --save in-view
@@ -37,7 +39,7 @@ inView('.someSelector')
 in-view maintains a separate handler registry for each set of elements captured with `inView(<selector>)`. Each registry exposes the same four methods. in-view also exposes two top-level methods. (`is`, `offset`).
 
 ### inView(\<selector>).on(\<event>, \<handler>)
-> Register a handler to the elements selected by `selector` for `event`. The only events the inView emits are `'enter'` and `'exit'`.
+> Register a handler to the elements selected by `selector` for `event`. The only events in-view emits are `'enter'` and `'exit'`.
 
 > ```js
 > inView('.someSelector').on('enter', doSomething);
@@ -74,12 +76,23 @@ in-view maintains a separate handler registry for each set of elements captured 
 > // => true
 > ```
 
-### inView.offset(\<integer>)
-> By default, in-view considers something in viewport if it breaks any edge of the viewport. This can be used to set an offset from that edge. For example, an offset of `100` will consider elements in viewport if they break any edge of the viewport by at least `100` pixels. `integer` can be positive or negative.
+### inView.offset(\<offset>)
+> By default, in-view considers something in viewport if it breaks any edge of the viewport. This can be used to set an offset from that edge. For example, an offset of `100` will consider elements in viewport if they break any edge of the viewport by at least `100` pixels. `offset` can be a positive or negative integer.
 
 > ```js
 > inView.offset(100);
 > inView.offset(-50);
+> ```
+
+> Offset can also be set per-direction by passing an object.
+
+> ```js
+> inView.offset({
+>     top: 100,
+>     right: 75,
+>     bottom: 50,
+>     left: 25
+> });
 > ```
 
 ### inView(\<selector>).check()
@@ -95,6 +108,14 @@ in-view maintains a separate handler registry for each set of elements captured 
 > ```js
 > inView('.someSelector').emit('exit', document.querySelectorAll('.someSelector')[0]);
 > ```
+
+---
+
+## Browser Support
+
+**in-view supports all modern browsers and IE9+.**
+
+As a small caveat, in-view utilizes [MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) to check the visibility of registered elements after a DOM mutation. If that's functionality you need in IE9-10, consider using a [polyfill](https://github.com/webcomponents/webcomponentsjs/blob/master/src/MutationObserver/MutationObserver.js).
 
 ---
 

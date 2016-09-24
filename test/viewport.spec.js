@@ -1,6 +1,6 @@
 import test                     from 'ava';
-import { example1, example2,
-    example3, example4 }        from './helpers/stub-nodes';
+import { example1, example2 }   from './helpers/stub-nodes';
+// import { example3, example4 }   from './helpers/stub-nodes';
 import { inViewport,
     getVisiblePixels }          from '../src/viewport';
 
@@ -19,21 +19,20 @@ test(`${title} w/ offset`, t => {
     let pix = getVisiblePixels(example1, 800);
     t.true(inViewport(example1,  50));
     t.false(inViewport(example1, 900));
-
-    t.true(pix.x  >=  88);
+    t.true(pix.x  >=  88); // Should this === 88 ?
     t.true(pix.y === 108);
 });
 
 title = 'inViewport.example2 (50/50 off top)';
 test(`${title} takes up 50%`, t => {
     let pix = getVisiblePixels(example2);
-    console.warn('PIX: 2 w/o', pix);
+    // console.warn('PIX: 2 w/o', pix);
     t.true(pix.x === 100);
     t.true(pix.y ===  50);
 });
 test(`${title} w/ offset min 60`, t => {
     let pix = getVisiblePixels(example2);
-    console.warn('PIX: 2 w/o', pix);
+    // console.warn('PIX: 2 w/o', pix);
     t.true(pix.x === 100);
     t.false(pix.y  >=  60);
 });

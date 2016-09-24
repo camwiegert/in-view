@@ -9,7 +9,8 @@ import { inViewport } from './viewport';
 
 class inViewRegistry {
 
-    constructor(elements) {
+    constructor(elements, offset) {
+        this.offset   = offset;
         this.current  = [];
         this.elements = elements;
         this.handlers = { enter: [], exit: [] };
@@ -20,10 +21,9 @@ class inViewRegistry {
     * Check each element in the registry, if an element
     * changes states, fire an event and operate on current.
     */
-    check(offset) {
+    check() {
         this.elements.forEach(el => {
-
-            let passes  = inViewport(el, offset);
+            let passes  = inViewport(el, this.offset);
             let index   = this.current.indexOf(el);
             let current = index > -1;
             let entered = passes && !current;
@@ -78,4 +78,4 @@ class inViewRegistry {
 
 }
 
-export default (elements) => new inViewRegistry(elements);
+export default (elements, offset) => new inViewRegistry(elements, offset);
