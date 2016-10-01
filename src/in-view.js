@@ -16,10 +16,10 @@ const inView = () => {
 
     /**
     * Maintain a hashmap of all registries, a history
-    * of selectors to enumerate, and an offset object.
+    * of selectors to enumerate, and an options object.
     */
     let selectors = { history: [] };
-    let offset = {};
+    let options   = { offset: {}, threshold: 0 };
 
     /**
     * Check each registry from selector history,
@@ -65,7 +65,7 @@ const inView = () => {
 
         // If it doesn't exist, create a new registry.
         else {
-            selectors[selector] = Registry(elements, offset);
+            selectors[selector] = Registry(elements, options);
             selectors.history.push(selector);
         }
 
@@ -77,21 +77,30 @@ const inView = () => {
     * or a number.
     */
     control.offset = o => {
-        if (o === undefined) return offset;
+        if (o === undefined) return options.offset;
         const isNum = n => typeof n === 'number';
         ['top', 'right', 'bottom', 'left']
             .forEach(isNum(o) ?
-                dim => offset[dim] = o :
-                dim => isNum(o[dim]) ? offset[dim] = o[dim] : null
+                dim => options.offset[dim] = o :
+                dim => isNum(o[dim]) ? options.offset[dim] = o[dim] : null
             );
-        return offset;
+        return options.offset;
+    };
+
+    /**
+    * Set the threshold with a number.
+    */
+    control.threshold = n => {
+        return typeof n === 'number' && n >= 0 && n <= 1
+            ? options.threshold = n
+            : options.threshold;
     };
 
     /**
     * Add proxy for inViewport, set defaults, and
     * return the interface.
     */
-    control.is = el => inViewport(el, offset);
+    control.is = el => inViewport(el, options);
     control.offset(0);
     return control;
 
