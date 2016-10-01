@@ -9,10 +9,10 @@ import { inViewport } from './viewport';
 
 class inViewRegistry {
 
-    constructor(elements, offset) {
-        this.offset   = offset;
-        this.current  = [];
+    constructor(elements, options) {
+        this.options  = options;
         this.elements = elements;
+        this.current  = [];
         this.handlers = { enter: [], exit: [] };
         this.singles  = { enter: [], exit: [] };
     }
@@ -23,7 +23,7 @@ class inViewRegistry {
     */
     check() {
         this.elements.forEach(el => {
-            let passes  = inViewport(el, this.offset);
+            let passes  = inViewport(el, this.options);
             let index   = this.current.indexOf(el);
             let current = index > -1;
             let entered = passes && !current;
@@ -78,4 +78,4 @@ class inViewRegistry {
 
 }
 
-export default (elements, offset) => new inViewRegistry(elements, offset);
+export default (elements, options) => new inViewRegistry(elements, options);
