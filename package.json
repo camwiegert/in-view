@@ -1,6 +1,6 @@
 {
   "name": "in-view",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "Get notified when a DOM element enters or exits the viewport.",
   "repository": "https://github.com/camwiegert/in-view",
   "main": "dist/in-view.min.js",
@@ -45,9 +45,12 @@
       "sourceType": "module"
     }
   },
-  "author": "Cam Wiegert <cam@camwiegert.com>",
+  "author": { "name": "Cam Wiegert", "email": "cam@camwiegert.com" },
   "homepage": "https://camwiegert.github.io/in-view",
   "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.16.0"
+  },
   "devDependencies": {
     "ava": "^0.16.0",
     "babel-core": "^6.14.0",
@@ -60,9 +63,7 @@
     "jsdom": "^9.4.2",
     "lodash-webpack-plugin": "^0.10.0",
     "node-sass": "^3.8.0",
+    "weakmap-shim": "^1.1.0",
     "webpack": "^1.13.2"
-  },
-  "dependencies": {
-    "lodash": "^4.15.0"
   }
 }

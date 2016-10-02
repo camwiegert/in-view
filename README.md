@@ -52,6 +52,22 @@ in-view maintains a separate handler registry for each set of elements captured 
 > inView('.someSelector').once('enter', doSomething);
 > ```
 
+### inView.is(\<element>, [\<minPixels>, \<container>])
+> Check if `element` is in the `container` by `minPixels`.
+
+> ```js
+> var el = document.querySelector('.someSelector');
+> inView.is(el, el.parentNode, 100);
+> ```
+
+### inView.is(\<element>)
+> Check if `element` is in the viewport.
+
+> ```js
+> inView.is(document.querySelector('.someSelector'));
+> // => true
+> ```
+
 ### inView.is(\<element>)
 > Check if `element` is in the viewport.
 

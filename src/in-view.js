@@ -1,6 +1,7 @@
-import Registry from './registry';
-import { inViewport } from './viewport';
-import { throttle } from 'lodash';
+import Registry           from './registry';
+import { inViewport }     from './viewport';
+import { throttle }       from 'lodash';
+import WeakMap            from 'weakmap-shim';
 
 /**
 * Create and return the inView function.
@@ -11,8 +12,11 @@ const inView = () => {
     * How often and on what events we should check
     * each registry.
     */
-    const interval = 100;
-    const triggers = ['scroll', 'resize', 'load'];
+    const interval    = 100;
+    const threshold   = 100;
+    const triggers    = ['scroll', 'resize', 'load'];
+    const listeners   = new WeakMap();
+
 
     /**
     * Maintain a hashmap of all registries, a history
@@ -31,12 +35,34 @@ const inView = () => {
         });
     }, interval);
 
+    // Const event handlers list, used to add/remove events
+    const handlers = triggers.map(event => {
+        return {
+            event,
+            handler: throttle(() => {
+                selectors.history.forEach(selector => {
+                    selectors[selector].check(control.offset);
+                });
+            }, threshold)
+        }
+    });
+
     /**
     * For each trigger event on window, add a listener
     * which checks each registry.
     */
-    triggers.forEach(event =>
-        addEventListener(event, check));
+    const addListeners = (container) => {
+        handlers.forEach(({event, handler}) => container.addEventListener(event, handler));
+        return handlers;
+    }
+
+    const removeListeners = (container) => {
+        handlers.forEach(({event, handler}) => container.removeEventListener(event, handler));
+        return handlers;
+    }
+
+    // triggers.forEach(event =>
+    //     addEventListener(event, check));
 
     /**
     * If supported, use MutationObserver to watch the
@@ -51,9 +77,14 @@ const inView = () => {
     * The main interface. Take a selector and retrieve
     * the associated registry or create a new one.
     */
-    let control = (selector) => {
+    let control = (selector, container = document.body) => {
 
         if (typeof selector !== 'string') return;
+
+        // check for events on the container (should handle if the container changes - eg drag-drop ui, multi-scroll, page/region checks for different item types)
+        if (listeners.has(container) !== true) {
+            listeners.set(container, addListeners(container));
+        }
 
         // Get an up-to-date list of elements.
         let elements = [].slice.call(document.querySelectorAll(selector));
@@ -62,7 +93,6 @@ const inView = () => {
         if (selectors.history.indexOf(selector) > -1) {
             selectors[selector].elements = elements;
         }
-
         // If it doesn't exist, create a new registry.
         else {
             selectors[selector] = Registry(elements, offset);
@@ -88,11 +118,22 @@ const inView = () => {
     };
 
     /**
+     * Add static destroy method
+     */
+    control.destroy = (container = document.body) => {
+        if (listeners.has(container)) {
+            listeners.delete(container);
+            return removeListeners(container);
+        }
+    }
+
+    /**
     * Add proxy for inViewport, set defaults, and
     * return the interface.
     */
     control.is = el => inViewport(el, offset);
     control.offset(0);
+
     return control;
 
 };
