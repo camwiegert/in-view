@@ -1,6 +1,6 @@
 import inView from '../../../src';
 
-let count = 200;
+let count = 400;
 let field = document.querySelector('.field');
 
 const createDot = () => {
@@ -15,7 +15,7 @@ while (count--) {
     field.appendChild(createDot());
 }
 
-inView.offset(50);
+inView.offset(200);
 
 inView('.dot')
     .on('enter', el =>

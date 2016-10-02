@@ -13,6 +13,7 @@ const inView = () => {
     */
     const interval = 100;
     const triggers = ['scroll', 'resize', 'load'];
+    const recalculationEvents = ['resize', 'load'];
 
     /**
     * Maintain a hashmap of all registries, a history
@@ -25,9 +26,13 @@ const inView = () => {
     * Check each registry from selector history,
     * throttled to interval.
     */
-    const check = throttle(() => {
+    const check = throttle((event) => {
+        window.currentScrollPosition = {
+            top: document.body.scrollTop || window.pageYOffset || (document.documentElement && document.documentElement.scrollTop),
+            left: document.body.scrollLeft || window.pageXOffset || (document.documentElement && document.documentElement.scrollLeft)
+        };
         selectors.history.forEach(selector => {
-            selectors[selector].check();
+            selectors[selector].check(recalculationEvents.indexOf(event.type) !== -1);
         });
     }, interval);
 
