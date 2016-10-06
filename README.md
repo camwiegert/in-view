@@ -80,7 +80,7 @@ in-view maintains a separate handler registry for each set of elements captured 
 > ```
 
 ### inView.threshold(\<threshold>)
-> Set the ratio of an element's width and height that needs to be visible for it to be considered in viewport. This defaults to `0`, meaning any amount. A threshold of `0.5` or `1` will require that half or all of an element's width and height need to be visible, respectively. `threshold` must be a number between `0` and `1`.
+> Set the ratio of an element's height **and** width that needs to be visible for it to be considered in viewport. This defaults to `0`, meaning any amount. A threshold of `0.5` or `1` will require that half or all, respectively, of an element's height and width need to be visible. `threshold` must be a number between `0` and `1`.
 > ```js
 > inView.threshold(0);
 > inView.threshold(0.5);
