@@ -1,6 +1,6 @@
 {
   "name": "in-view",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "Get notified when a DOM element enters or exits the viewport.",
   "repository": "https://github.com/camwiegert/in-view",
   "main": "dist/in-view.min.js",
