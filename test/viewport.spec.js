@@ -17,17 +17,20 @@ const stub = {
     }
 };
 
-const offset = {
-    top: 250,
-    right: 250,
-    bottom: 250,
-    left: 250
+const opts = {
+    offset: {
+        top: 250,
+        right: 250,
+        bottom: 250,
+        left: 250
+    },
+    threshold: 0
 };
 
 test('inViewport returns a boolean', t => {
-    t.true(typeof inViewport(stub, offset) === 'boolean');
+    t.true(typeof inViewport(stub, opts) === 'boolean');
 });
 
 test('inViewport accepts an offset', t => {
-    t.false(inViewport(stub, offset));
+    t.false(inViewport(stub, opts));
 });

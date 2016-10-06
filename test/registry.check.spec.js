@@ -4,11 +4,14 @@ import Registry from '../src/registry';
 window.innerWidth = 1280;
 window.innerHeight = 700;
 
-const offset = {
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0
+const opts = {
+    offset: {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0
+    },
+    threshold: 0
 };
 
 test('Registry.check updates current', t => {
@@ -19,7 +22,9 @@ test('Registry.check updates current', t => {
                 bottom: 1,
                 left: 1,
                 right: 1,
-                top: 1
+                top: 1,
+                width: 100,
+                height: 100
             };
         }
     }, {
@@ -28,10 +33,12 @@ test('Registry.check updates current', t => {
                 bottom: -1,
                 left: -1,
                 right: -1,
-                top: -1
+                top: -1,
+                width: 100,
+                height: 100
             };
         }
-    }], offset);
+    }], opts);
 
     t.true(!registry.current.length);
 
@@ -48,12 +55,14 @@ test('Registry.check emits enter events', t => {
                 bottom: 1,
                 left: 1,
                 right: 1,
-                top: 1
+                top: 1,
+                width: 100,
+                height: 100
             };
         }
     };
 
-    let registry = Registry([stub], offset);
+    let registry = Registry([stub], opts);
 
     registry.on('enter', el => t.deepEqual(el, stub));
     registry.check();
@@ -68,12 +77,14 @@ test('Registry.check emits exit events', t => {
                 bottom: -1,
                 left: -1,
                 right: -1,
-                top: -1
+                top: -1,
+                width: 100,
+                height: 100
             };
         }
     };
 
-    let registry = Registry([stub], offset);
+    let registry = Registry([stub], opts);
 
     registry.on('exit', el => t.deepEqual(el, stub));
     registry.check();
@@ -81,6 +92,6 @@ test('Registry.check emits exit events', t => {
 });
 
 test('Registry.check returns the registry', t => {
-    let registry = Registry([], offset);
+    let registry = Registry([], opts);
     t.deepEqual(registry.check(), registry);
 });

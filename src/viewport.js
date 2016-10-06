@@ -2,7 +2,7 @@
 * Check whether an element is in the viewport by
 * more than offset px.
 */
-export function inViewport (element, offset) {
+export function inViewport (element, options) {
 
     /**
     * Check if window is undefined. Will not break
@@ -10,7 +10,7 @@ export function inViewport (element, offset) {
     */
     if (typeof window === 'undefined') return
 
-    const { top, right, bottom, left } = element.getBoundingClientRect();
+    const { top, right, bottom, left, width, height } = element.getBoundingClientRect();
 
     const intersection = {
         t: bottom,
@@ -19,9 +19,14 @@ export function inViewport (element, offset) {
         l: right
     };
 
-    return intersection.t > offset.top
-        && intersection.r > offset.right
-        && intersection.b > offset.bottom
-        && intersection.l > offset.left;
+    const threshold = {
+        x: options.threshold * width,
+        y: options.threshold * height
+    };
+
+    return intersection.t > (options.offset.top    + threshold.y)
+        && intersection.r > (options.offset.right  + threshold.x)
+        && intersection.b > (options.offset.bottom + threshold.y)
+        && intersection.l > (options.offset.left   + threshold.x);
 
 }

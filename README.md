@@ -36,7 +36,7 @@ inView('.someSelector')
 
 ## API
 
-in-view maintains a separate handler registry for each set of elements captured with `inView(<selector>)`. Each registry exposes the same four methods. in-view also exposes two top-level methods. (`is`, `offset`).
+in-view maintains a separate handler registry for each set of elements captured with `inView(<selector>)`. Each registry exposes the same four methods. in-view also exposes three top-level methods. (`is`, `offset`, `threshold`).
 
 ### inView(\<selector>).on(\<event>, \<handler>)
 > Register a handler to the elements selected by `selector` for `event`. The only events in-view emits are `'enter'` and `'exit'`.
@@ -78,6 +78,14 @@ in-view maintains a separate handler registry for each set of elements captured 
 >     left: 25
 > });
 > ```
+
+### inView.threshold(\<threshold>)
+> Set the ratio of an element's height **and** width that needs to be visible for it to be considered in viewport. This defaults to `0`, meaning any amount. A threshold of `0.5` or `1` will require that half or all, respectively, of an element's height and width need to be visible. `threshold` must be a number between `0` and `1`.
+> ```js
+> inView.threshold(0);
+> inView.threshold(0.5);
+> inView.threshold(1);
+> ``` 
 
 ### inView(\<selector>).check()
 > Manually check the status of the elements selected by `selector`. By default, all registries are checked on `window`'s `scroll`, `resize`, and `load` events.
