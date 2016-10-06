@@ -8,6 +8,12 @@ import { throttle } from 'lodash';
 const inView = () => {
 
     /**
+    * Check if window is undefined. Will not break
+    * isomorphic applications
+    */
+    if (typeof window === 'undefined') return
+
+    /**
     * How often and on what events we should check
     * each registry.
     */
