@@ -8,6 +8,11 @@ import { throttle } from 'lodash';
 const inView = () => {
 
     /**
+    * Fallback if window is undefined.
+    */
+    if (typeof window === 'undefined') return;
+
+    /**
     * How often and on what events we should check
     * each registry.
     */
