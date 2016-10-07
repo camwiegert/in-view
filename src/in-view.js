@@ -102,8 +102,18 @@ const inView = () => {
     };
 
     /**
-    * Add proxy for inViewport, set defaults, and
-    * return the interface.
+    * Use a custom test, overriding inViewport, to
+    * determine element visibility.
+    */
+    control.test = fn => {
+        return typeof fn === 'function'
+            ? options.test = fn
+            : options.test;
+    };
+
+    /**
+    * Add proxy for test function, set defaults,
+    * and return the interface.
     */
     control.is = el => options.test(el, options);
     control.offset(0);
