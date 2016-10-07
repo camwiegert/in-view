@@ -1,5 +1,3 @@
-import { inViewport } from './viewport';
-
 /**
 * - Registry -
 *
@@ -23,7 +21,7 @@ class inViewRegistry {
     */
     check() {
         this.elements.forEach(el => {
-            let passes  = inViewport(el, this.options);
+            let passes  = this.options.test(el, this.options);
             let index   = this.current.indexOf(el);
             let current = index > -1;
             let entered = passes && !current;

@@ -24,7 +24,7 @@ const inView = () => {
     * of selectors to enumerate, and an options object.
     */
     let selectors = { history: [] };
-    let options   = { offset: {}, threshold: 0 };
+    let options   = { offset: {}, threshold: 0, test: inViewport };
 
     /**
     * Check each registry from selector history,
@@ -105,7 +105,7 @@ const inView = () => {
     * Add proxy for inViewport, set defaults, and
     * return the interface.
     */
-    control.is = el => inViewport(el, options);
+    control.is = el => options.test(el, options);
     control.offset(0);
     return control;
 
