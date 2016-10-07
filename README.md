@@ -5,6 +5,7 @@ Get notified when a DOM element enters or exits the viewport. A small (~1.9kb gz
 [camwiegert.github.io/in-view](https://camwiegert.github.io/in-view)
 
 [![Build Status](https://travis-ci.org/camwiegert/in-view.svg?branch=master)](https://travis-ci.org/camwiegert/in-view)
+[![npm/in-view](https://img.shields.io/npm/v/in-view.svg?maxAge=2592000)](https://npmjs.com/package/in-view)
 
 ![in-view.js](https://camwiegert.github.io/in-view/lib/images/in-view.png)
 
