@@ -1,5 +1,6 @@
 import test from 'ava';
 import Registry from '../src/registry';
+import { inViewport } from '../src/viewport';
 
 window.innerWidth = 1280;
 window.innerHeight = 700;
@@ -11,7 +12,8 @@ const opts = {
         bottom: 0,
         left: 0
     },
-    threshold: 0
+    threshold: 0,
+    test: inViewport
 };
 
 test('Registry.check updates current', t => {
