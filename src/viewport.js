@@ -4,12 +4,6 @@
 */
 export function inViewport (element, options) {
 
-    /**
-    * Check if window is undefined. Will not break
-    * isomorphic applications
-    */
-    if (typeof window === 'undefined') return
-
     const { top, right, bottom, left, width, height } = element.getBoundingClientRect();
 
     const intersection = {
