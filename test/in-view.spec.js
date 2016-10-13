@@ -30,4 +30,22 @@ test('inView updates existing registry elements', t => {
 
 });
 
+test('inView accepts Node', t => {
+  let dom;
+  document.body.appendChild(
+    dom = document.createElement('div')
+  );
+
+  t.true(inView(dom).elements.length ===1);
+});
+
+test('inView accepts NodeList', t => {
+  document.body.appendChild(
+    document.createElement('div')
+  );
+  let list = document.querySelectorAll('div');
+
+  t.true(inView(list).elements.length > 0);
+});
+
 test.after(initBrowserEnv);

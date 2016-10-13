@@ -27,6 +27,11 @@ const inView = () => {
     let options   = { offset: {}, threshold: 0, test: inViewport };
 
     /**
+     * store counter of individual nodes
+     */
+    let nodecounter = 0;
+
+    /**
     * Check each registry from selector history,
     * throttled to interval.
     */
@@ -60,14 +65,30 @@ const inView = () => {
     */
     let control = (selector) => {
 
-        if (typeof selector !== 'string') return;
-
-        // Get an up-to-date list of elements.
-        let elements = [].slice.call(document.querySelectorAll(selector));
+        let elements;
+        if (typeof selector == 'string') {
+          // Get an up-to-date list of elements.
+          elements = Array.from(document.querySelectorAll(selector));
+        } else if (selector instanceof window.Node) {
+          // Accept if its allready a Node
+          elements = [selector];
+          selector = "Node-"+nodecounter++;
+        } else if (selector instanceof window.NodeList) {
+          // Accept if its allready a NodeList
+          elements = Array.from(selector);
+          selector = "Node-"+nodecounter++;
+        } else {
+          // selector is not supported
+          return null;
+        }
 
         // If the registry exists, update the elements.
         if (selectors.history.indexOf(selector) > -1) {
+          if (selector.substr(0,4) == "Node") {
+            selectors[selector].elements.concat(elements);
+          } else {
             selectors[selector].elements = elements;
+          }
         }
 
         // If it doesn't exist, create a new registry.
