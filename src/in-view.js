@@ -48,8 +48,10 @@ const inView = () => {
     * DOM and run checks on mutation.
     */
     if (window.MutationObserver) {
-        new MutationObserver(check)
-            .observe(document.body, { attributes: true, childList: true, subtree: true });
+        addEventListener('DOMContentLoaded', () => {
+            new MutationObserver(check)
+                .observe(document.body, { attributes: true, childList: true, subtree: true });
+        });
     }
 
     /**
