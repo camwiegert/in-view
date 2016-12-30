@@ -17,14 +17,14 @@ const inView = () => {
     * each registry.
     */
     const interval = 100;
-    const triggers = ['scroll', 'resize', 'load'];
+    const triggers = ['scroll', 'resize'];
 
     /**
     * Maintain a hashmap of all registries, a history
     * of selectors to enumerate, and an options object.
     */
     let selectors = { history: [] };
-    let options   = { offset: {}, threshold: 0, test: inViewport };
+    let options   = { offset: {}, threshold: 0, test: inViewport, async: true };
 
     /**
     * Check each registry from selector history,
@@ -32,7 +32,14 @@ const inView = () => {
     */
     const check = throttle(() => {
         selectors.history.forEach(selector => {
-            selectors[selector].check();
+            const registry = selectors[selector];
+            if (options.async) {
+                let elements = [].slice.call(document.querySelectorAll(selector));
+                if (elements.length !== registry.elements.length) {
+                    registry.elements = elements;
+                }
+            }
+            registry.check();
         });
     }, interval);
 
@@ -40,17 +47,16 @@ const inView = () => {
     * For each trigger event on window, add a listener
     * which checks each registry.
     */
-    triggers.forEach(event =>
-        addEventListener(event, check));
+    triggers.forEach(event => window.addEventListener(event, check));
 
     /**
     * If supported, use MutationObserver to watch the
     * DOM and run checks on mutation.
     */
     if (window.MutationObserver) {
-        addEventListener('DOMContentLoaded', () => {
+        isReady(() => {
             new MutationObserver(check)
-                .observe(document.body, { attributes: true, childList: true, subtree: true });
+                .observe(document, { attributes: true, childList: true, subtree: true });
         });
     }
 
@@ -75,6 +81,9 @@ const inView = () => {
             selectors[selector] = Registry(elements, options);
             selectors.history.push(selector);
         }
+
+        // Trigger initial check next tick.
+        setTimeout(() => isReady(check));
 
         return selectors[selector];
     };
@@ -114,14 +123,34 @@ const inView = () => {
     };
 
     /**
+     * Change the flag for checking async changed elements.
+     */
+    control.async = a => {
+        return typeof a === 'boolean'
+            ? options.async = a
+            : options.async;
+    }
+
+    /**
     * Add proxy for test function, set defaults,
     * and return the interface.
     */
     control.is = el => options.test(el, options);
-    control.offset(0);
-    return control;
 
+    control.offset(0);
+
+    return control;
 };
+
+/**
+* Detect document preparation status to invoke callback.
+*/
+function isReady (callback) {
+    if (document.state === 'loading') {
+        return document.addEventListener('DOMContentLoaded', callback);
+    }
+    callback();
+}
 
 // Export a singleton.
 export default inView();

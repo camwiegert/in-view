@@ -37,7 +37,7 @@ inView('.someSelector')
 
 ## API
 
-in-view maintains a separate handler registry for each set of elements captured with `inView(<selector>)`. Each registry exposes the same four methods. in-view also exposes four top-level methods. (`is`, `offset`, `threshold`, `test`).
+in-view maintains a separate handler registry for each set of elements captured with `inView(<selector>)`. Each registry exposes the same four methods. in-view also exposes five top-level methods. (`offset`, `threshold`, `test`, `async`, `is`).
 
 ### inView(\<selector>).on(\<event>, \<handler>)
 > Register a handler to the elements selected by `selector` for `event`. The only events in-view emits are `'enter'` and `'exit'`.
@@ -96,6 +96,12 @@ in-view maintains a separate handler registry for each set of elements captured 
 > });
 > ```
 
+### inView.async(\<async>)
+> Define if additional checks for new elements for a selector should be executed. Defaults to `true`.
+> ```js
+> inView.async(false);
+> ```
+
 ### inView(\<selector>).check()
 > Manually check the status of the elements selected by `selector`. By default, all registries are checked on `window`'s `scroll`, `resize`, and `load` events.
 
@@ -122,7 +128,7 @@ As a small caveat, in-view utilizes [MutationObserver](https://developer.mozilla
 
 ## Performance
 
-Any library that watches scroll events runs the risk of degrading page performance. To mitigate this, currently, in-view only registers a single, throttled (maximum once every 100ms) event listener on each of `window`'s `load`, `resize`, and `scroll` events and uses those to run a check on each registry.
+Any library that watches scroll events runs the risk of degrading page performance. To mitigate this, currently, in-view only registers a single, throttled (maximum once every 100ms) event listener on each of `window`'s `resize` and `scroll` events and uses those to run a check on each registry.
 
 ### Utilizing IntersectionObserver
 
