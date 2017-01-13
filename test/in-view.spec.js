@@ -48,4 +48,24 @@ test('inView accepts NodeList', t => {
   t.true(inView(list).elements.length > 0);
 });
 
+test('inView accepts Array', t => {
+  document.body.appendChild(
+    document.createElement('div')
+  );
+  let list = document.querySelectorAll('div');
+  let arr = Array.from(list); //jquery like element list
+
+  t.true(inView(arr).elements.length > 0);
+});
+
+test('inView registry has stored the requested name', t => {
+  document.body.appendChild(
+    document.createElement('div')
+  );
+  let list = document.querySelectorAll('div');
+  let arr = Array.from(list);
+
+  t.regex(inView(arr).selector,/^Node\-/);
+});
+
 test.after(initBrowserEnv);

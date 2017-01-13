@@ -73,7 +73,7 @@ const inView = () => {
           // Accept if its allready a Node
           elements = [selector];
           selector = "Node-"+nodecounter++;
-        } else if (selector instanceof window.NodeList) {
+        } else if (selector instanceof window.NodeList || selector instanceof Array) {
           // Accept if its allready a NodeList
           elements = Array.from(selector);
           selector = "Node-"+nodecounter++;
@@ -93,7 +93,7 @@ const inView = () => {
 
         // If it doesn't exist, create a new registry.
         else {
-            selectors[selector] = Registry(elements, options);
+            selectors[selector] = Registry(elements, options, selector);
             selectors.history.push(selector);
         }
 

@@ -12,9 +12,11 @@ const opts = {
 };
 
 test('Registry returns a registry', t => {
-    let registry = Registry([document.body], opts);
+    var selector = ".myselector";
+    let registry = Registry([document.body], opts, selector);
     t.deepEqual(registry, {
         options: opts,
+        selector: selector,
         current: [],
         elements: [document.body],
         handlers: { enter: [], exit: [] },
