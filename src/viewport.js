@@ -4,6 +4,16 @@
 */
 export function inViewport (element, options) {
 
+    //Just being picky here, but I actually caught myself on it!
+    if(typeof element === 'string') {
+        throw new Error ('Please provide an HTML element, not a selector.')
+    }
+    
+    //If passed element is not an object or is not DOM element
+    if(typeof element !== 'object' || !(element instanceof Element)) {
+        throw new Error ('Provided element is not valid DOM element')
+    }
+
     const { top, right, bottom, left, width, height } = element.getBoundingClientRect();
 
     const intersection = {

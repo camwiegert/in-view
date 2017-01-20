@@ -46,6 +46,15 @@ class inViewRegistry {
     * for every event.
     */
     on(event, handler) {
+
+        if ( !event || typeof event !== 'string' ) {
+            throw new Error(`No event name provided or event type is not a string.`);
+        }
+
+        if ( event !== 'enter' && event !== 'exit' ) {
+            throw new Error(`Event name "${event}" is not valid. Use either "enter" or "exit".`);
+        }
+       
         this.handlers[event].push(handler);
         return this;
     }
@@ -55,6 +64,15 @@ class inViewRegistry {
     * once and removed.
     */
     once(event, handler) {
+
+        if ( !event || typeof event !== 'string' ) {
+            throw new Error(`No event name provided or event type is not a string.`);
+        }
+
+        if ( event !== 'enter' && event !== 'exit' ) {
+            throw new Error(`Event name "${event}" is not valid. Use either "enter" or "exit".`);
+        }
+        
         this.singles[event].unshift(handler);
         return this;
     }
@@ -64,6 +82,15 @@ class inViewRegistry {
     * internally, but could be useful for users.
     */
     emit(event, element) {
+
+        if ( !event || typeof event !== 'string' ) {
+            throw new Error(`No event name provided or event type is not a string.`);
+        }
+
+        if ( event !== 'enter' && event !== 'exit' ) {
+            throw new Error(`Event name "${event}" is not valid. Use either "enter" or "exit".`);
+        }
+        
         while(this.singles[event].length) {
             this.singles[event].pop()(element);
         }

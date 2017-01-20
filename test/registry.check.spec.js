@@ -18,29 +18,32 @@ const opts = {
 
 test('Registry.check updates current', t => {
 
-    let registry = Registry([{
-        getBoundingClientRect() {
-            return {
-                bottom: 1,
-                left: 1,
-                right: 1,
-                top: 1,
-                width: 100,
-                height: 100
-            };
-        }
-    }, {
-        getBoundingClientRect() {
-            return {
-                bottom: -1,
-                left: -1,
-                right: -1,
-                top: -1,
-                width: 100,
-                height: 100
-            };
-        }
-    }], opts);
+    const stub1 = new Element();
+    const stub2 = new Element();
+
+    stub1.getBoundingClientRect = () => {
+        return {
+            bottom: 1,
+            left: 1,
+            right: 1,
+            top: 1,
+            width: 100,
+            height: 100
+        };
+    }
+
+    stub2.getBoundingClientRect = () => {
+        return {
+            bottom: -1,
+            left: -1,
+            right: -1,
+            top: -1,
+            width: 100,
+            height: 100
+        };
+    }
+
+    let registry = Registry([stub1, stub2], opts);
 
     t.true(!registry.current.length);
 
@@ -51,18 +54,18 @@ test('Registry.check updates current', t => {
 
 test('Registry.check emits enter events', t => {
 
-    let stub = {
-        getBoundingClientRect() {
-            return {
-                bottom: 1,
-                left: 1,
-                right: 1,
-                top: 1,
-                width: 100,
-                height: 100
-            };
-        }
-    };
+    const stub = new Element();
+
+    stub.getBoundingClientRect = () => {
+        return {
+            bottom: 1,
+            left: 1,
+            right: 1,
+            top: 1,
+            width: 100,
+            height: 100
+        };
+    }
 
     let registry = Registry([stub], opts);
 
@@ -73,17 +76,17 @@ test('Registry.check emits enter events', t => {
 
 test('Registry.check emits exit events', t => {
 
-    let stub = {
-        getBoundingClientRect() {
-            return {
-                bottom: -1,
-                left: -1,
-                right: -1,
-                top: -1,
-                width: 100,
-                height: 100
-            };
-        }
+    const stub = new Element();
+
+    stub.getBoundingClientRect = () => {
+        return {
+            bottom: -1,
+            left: -1,
+            right: -1,
+            top: -1,
+            width: 100,
+            height: 100
+        };
     };
 
     let registry = Registry([stub], opts);

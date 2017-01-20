@@ -8,6 +8,7 @@ global.initBrowserEnv = () => {
 
     global.window = document.defaultView;
     global.navigator = window.navigator;
+    global.Element = () => {};
     global.addEventListener = () => {};
 
 };

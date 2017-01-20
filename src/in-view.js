@@ -10,7 +10,9 @@ const inView = () => {
     /**
     * Fallback if window is undefined.
     */
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined') {
+        throw new Error (`No "window" object detected. Try run this module in a browser :)`)
+    }
 
     /**
     * How often and on what events we should check
@@ -60,7 +62,9 @@ const inView = () => {
     */
     let control = (selector) => {
 
-        if (typeof selector !== 'string') return;
+        if (!selector || typeof selector !== 'string') {
+            throw new Error(`No selector provided or it's not a string.`)
+        }
 
         // Get an up-to-date list of elements.
         let elements = [].slice.call(document.querySelectorAll(selector));
@@ -118,9 +122,9 @@ const inView = () => {
     * and return the interface.
     */
     control.is = el => options.test(el, options);
+
     control.offset(0);
     return control;
-
 };
 
 // Export a singleton.
