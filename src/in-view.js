@@ -68,14 +68,14 @@ const inView = () => {
         let elements;
         if (typeof selector == 'string') {
           // Get an up-to-date list of elements.
-          elements = Array.from(document.querySelectorAll(selector));
+          elements = [].slice.call(document.querySelectorAll(selector));
         } else if (selector instanceof window.Node) {
           // Accept if its allready a Node
           elements = [selector];
           selector = "Node-"+nodecounter++;
         } else if (selector instanceof window.NodeList || selector instanceof Array) {
           // Accept if its allready a NodeList
-          elements = Array.from(selector);
+          elements = [].slice.call(selector);
           selector = "Node-"+nodecounter++;
         } else {
           // selector is not supported
