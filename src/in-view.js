@@ -65,7 +65,7 @@ const inView = () => {
         // Get an up-to-date list of elements.
         var elements = [];
         if (selector.charAt(0) == '#') {
-            let element = document.getElementById(selector);
+            let element = document.getElementById(selector.subStr(1));
             elements = element ? [element] : elements;
         } else {
             elements = [].slice.call(document.querySelectorAll(selector));
