@@ -63,7 +63,7 @@ const inView = () => {
         if (typeof selector !== 'string') return;
 
         // Get an up-to-date list of elements.
-        let elements = [].slice.call(document.querySelectorAll(selector));
+        let elements = [].slice.call(selector.charAt(0) == '#' ? document.getElementById(selector) : document.querySelectorAll(selector));
 
         // If the registry exists, update the elements.
         if (selectors.history.indexOf(selector) > -1) {
