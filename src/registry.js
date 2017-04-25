@@ -57,6 +57,11 @@ class inViewRegistry {
         for (var i = this.handlers[event].length; i > 0; i--) {
             this.handlers[event].pop();
         }
+
+        for (var j = this.singles[event].length; j > 0; j--) {
+            this.singles[event].pop();
+        }
+
         return this;
     }
 
