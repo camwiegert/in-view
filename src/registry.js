@@ -13,6 +13,7 @@ class inViewRegistry {
         this.current  = [];
         this.handlers = { enter: [], exit: [] };
         this.singles  = { enter: [], exit: [] };
+        check();
     }
 
     /**
@@ -47,6 +48,16 @@ class inViewRegistry {
     */
     on(event, handler) {
         this.handlers[event].push(handler);
+        return this;
+    }
+
+    /**
+    * Deregister all handlers for an event.
+    */
+    off(event) {
+        for (var i = this.handlers[event].length; i > 0; i--) {
+            this.handlers[event].pop();
+        }
         return this;
     }
 
