@@ -13,7 +13,6 @@ class inViewRegistry {
         this.current  = [];
         this.handlers = { enter: [], exit: [] };
         this.singles  = { enter: [], exit: [] };
-        check();
     }
 
     /**
