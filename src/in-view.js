@@ -63,13 +63,7 @@ const inView = () => {
         if (typeof selector !== 'string') return;
 
         // Get an up-to-date list of elements.
-        var elements = [];
-        if (selector.charAt(0) == '#') {
-            let element = document.getElementById(selector.substr(1));
-            elements = element ? [element] : elements;
-        } else {
-            elements = [].slice.call(document.querySelectorAll(selector));
-        }
+        let elements = [].slice.call(document.querySelectorAll(selector));
 
         // If the registry exists, update the elements.
         if (selectors.history.indexOf(selector) > -1) {
