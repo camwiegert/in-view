@@ -6,7 +6,10 @@ import { throttle } from 'lodash';
 * Create and return the inView function.
 */
 const inView = () => {
-
+    let supportsPassive = false;
+    try {
+      document.addEventListener("test", null, { get passive() { supportsPassive = true }});
+    } catch(e) {}
     /**
     * Fallback if window is undefined.
     */
@@ -41,7 +44,7 @@ const inView = () => {
     * which checks each registry.
     */
     triggers.forEach(event =>
-        addEventListener(event, check));
+        addEventListener(event, check, supportsPassive ? {passive: true} : false));
 
     /**
     * If supported, use MutationObserver to watch the
