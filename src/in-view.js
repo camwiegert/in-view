@@ -9,7 +9,9 @@ const inView = () => {
     let supportsPassive = false;
     try {
       document.addEventListener("test", null, { get passive() { supportsPassive = true }});
-    } catch(e) {}
+    } catch(e) {
+      // empty
+    }
     /**
     * Fallback if window is undefined.
     */
