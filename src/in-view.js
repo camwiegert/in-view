@@ -5,7 +5,7 @@ import { throttle } from 'lodash';
 /**
 * Create and return the inView function.
 */
-const inView = () => {
+export const inView = () => {
 
     /**
     * Fallback if window is undefined.
