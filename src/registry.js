@@ -54,13 +54,8 @@ class inViewRegistry {
     * Deregister all handlers for an event.
     */
     off(event) {
-        for (var i = this.handlers[event].length; i > 0; i--) {
-            this.handlers[event].pop();
-        }
-
-        for (var j = this.singles[event].length; j > 0; j--) {
-            this.singles[event].pop();
-        }
+        this.handlers[event] = [];
+        this.singles[event] = [];
 
         return this;
     }
