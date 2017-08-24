@@ -7,12 +7,14 @@
 
 class inViewRegistry {
 
-    constructor(elements, options) {
+    constructor(elements, options, selector) {
         this.options  = options;
         this.elements = elements;
         this.current  = [];
         this.handlers = { enter: [], exit: [] };
         this.singles  = { enter: [], exit: [] };
+        this.queue    = {};
+        this.selector = selector
     }
 
     /**
@@ -20,21 +22,31 @@ class inViewRegistry {
     * changes states, fire an event and operate on current.
     */
     check() {
+        let enterCount = 0;
+        let exitCount = 0;
         this.elements.forEach(el => {
             let passes  = this.options.test(el, this.options);
             let index   = this.current.indexOf(el);
             let current = index > -1;
             let entered = passes && !current;
             let exited  = !passes && current;
+            let id      = el.getAttribute('data-in-view');
 
-            if (entered) {
-                this.current.push(el);
-                this.emit('enter', el);
+            if (entered && this.queue[id] === undefined) {
+                this.queue[id] = setTimeout( ctx => {
+                    ctx.current.push(el);
+                    ctx.emit('enter', el);
+                    delete this.queue[id];
+                }, this.options.stagger * enterCount++, this);
             }
 
-            if (exited) {
-                this.current.splice(index, 1);
-                this.emit('exit', el);
+            if (exited && this.queue[id] === undefined) {
+                this.queue[id] = setTimeout( ctx => {
+                    ctx.current.splice(index, 1);
+                    ctx.emit('exit', el);
+                    delete this.queue[id];
+                }, this.options.stagger * exitCount++, this);
+
             }
 
         });

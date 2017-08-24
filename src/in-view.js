@@ -24,7 +24,7 @@ const inView = () => {
     * of selectors to enumerate, and an options object.
     */
     let selectors = { history: [] };
-    let options   = { offset: {}, threshold: 0, test: inViewport };
+    let options   = { offset: {}, threshold: 0, test: inViewport, stagger: 0 };
 
     /**
     * Check each registry from selector history,
@@ -72,8 +72,14 @@ const inView = () => {
 
         // If it doesn't exist, create a new registry.
         else {
-            selectors[selector] = Registry(elements, options);
+            selectors[selector] = Registry(elements, options, selector);
             selectors.history.push(selector);
+
+            let i = 0;
+            for( let element of elements ){
+                // Add a unique ID to this element's data
+                element.setAttribute('data-in-view', `${selector}${i++}`);
+            }
         }
 
         return selectors[selector];
@@ -111,6 +117,16 @@ const inView = () => {
         return typeof fn === 'function'
             ? options.test = fn
             : options.test;
+    };
+
+    /**
+    * Use a custom test, overriding inViewport, to
+    * determine element visibility.
+    */
+    control.stagger = n => {
+        return typeof n === 'number' && n >= 0
+            ? options.stagger = n
+            : options.stagger
     };
 
     /**

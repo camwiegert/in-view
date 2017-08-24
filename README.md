@@ -88,6 +88,14 @@ in-view maintains a separate handler registry for each set of elements captured 
 > inView.threshold(1);
 > ```
 
+### inView.stagger(\<stagger>)
+> Set the ms to stagger each new in-view item. When more than one in-view item enters or exits the viewport, its event execution will be delayed by `<stagger> * <this item's index>` ms.
+> ```js
+> inView.stagger(100);
+> inView.stagger(400);
+> ```
+
+
 ### inView.test(\<test>)
 > Override in-view's default visibility criteria with a custom function. This function will receive the element and the options object as its only two arguments. Return `true` when an element should be considered visible and `false` otherwise.
 > ```js
