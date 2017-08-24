@@ -37,7 +37,7 @@ inView('.someSelector')
 
 ## API
 
-in-view maintains a separate handler registry for each set of elements captured with `inView(<selector>)`. Each registry exposes the same four methods. in-view also exposes four top-level methods. (`is`, `offset`, `threshold`, `test`).
+in-view maintains a separate handler registry for each set of elements captured with `inView(<selector>)`. Each registry exposes the same four methods. in-view also exposes five top-level methods. (`is`, `offset`, `threshold`, `test`, `stagger`).
 
 ### inView(\<selector>).on(\<event>, \<handler>)
 > Register a handler to the elements selected by `selector` for `event`. The only events in-view emits are `'enter'` and `'exit'`.
