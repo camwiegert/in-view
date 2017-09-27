@@ -51,6 +51,15 @@ class inViewRegistry {
     }
 
     /**
+    * Deregister all handlers for an event
+    */
+    off(event) {
+        this.handlers[event] = [];
+        this.singles[event] = [];
+        return this;
+    }
+
+    /**
     * Register a handler for event, to be fired
     * once and removed.
     */
