@@ -1,6 +1,8 @@
 import test from 'ava';
 import inView from '../src/in-view';
 
+const view = new inView();
+
 test('inView.offset returns the offset', t => {
     const stub = {
         top: 0,
@@ -8,12 +10,12 @@ test('inView.offset returns the offset', t => {
         bottom: 0,
         left: 0
     };
-    t.deepEqual(inView.offset(0), stub);
-    t.deepEqual(inView.offset(), stub);
+    t.deepEqual(view.offset(0), stub);
+    t.deepEqual(view.offset(), stub);
 });
 
 test('inView.offset accepts a number', t => {
-    t.deepEqual(inView.offset(10), {
+    t.deepEqual(view.offset(10), {
         top: 10,
         right: 10,
         bottom: 10,
@@ -22,7 +24,7 @@ test('inView.offset accepts a number', t => {
 });
 
 test('inView.offset accepts an object', t => {
-    t.deepEqual(inView.offset({
+    t.deepEqual(view.offset({
         top: 25,
         right: 50,
         bottom: 75,

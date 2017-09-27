@@ -2,6 +2,8 @@ import test from 'ava';
 import inView from '../src/in-view';
 import { inViewport } from '../src/viewport';
 
+const view = new inView();
+
 const stub = {
     getBoundingClientRect() {
         return {
@@ -16,6 +18,6 @@ const stub = {
 };
 
 test('inView.is returns a boolean', t => {
-    t.true(typeof inView.is(stub) === 'boolean');
-    t.true(inView.is(stub));
+    t.true(typeof view.is(stub) === 'boolean');
+    t.true(view.is(stub));
 });

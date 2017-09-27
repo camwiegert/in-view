@@ -2,17 +2,19 @@ import test from 'ava';
 import inView from '../src/in-view';
 import Registry from '../src/registry';
 
+const view = new inView();
+
 test('inView is a function', t => {
-    t.true(typeof inView === 'function');
+    t.true(typeof view === 'function');
 });
 
 test('inView returns a registry', t => {
-    t.true(inView('body').__proto__ === Registry([]).__proto__);
+    t.true(view('body').__proto__ === Registry([]).__proto__);
 });
 
 test('inView returns existing registries', t => {
-    let registry = inView('body');
-    t.true(registry === inView('body'));
+    let registry = view('body');
+    t.true(registry === view('body'));
 });
 
 test('inView updates existing registry elements', t => {
@@ -23,10 +25,10 @@ test('inView updates existing registry elements', t => {
         );
     };
 
-    t.true(inView('div').elements.length === 0);
+    t.true(view('div').elements.length === 0);
 
     addDiv();
-    t.true(inView('div').elements.length === 1);
+    t.true(view('div').elements.length === 1);
 
 });
 
