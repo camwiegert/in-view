@@ -7,9 +7,10 @@
 
 class inViewRegistry {
 
-    constructor(elements, options) {
+    constructor(elements, options, selector) {
         this.options  = options;
         this.elements = elements;
+        this.selector = selector;
         this.current  = [];
         this.handlers = { enter: [], exit: [] };
         this.singles  = { enter: [], exit: [] };
@@ -85,4 +86,4 @@ class inViewRegistry {
 
 }
 
-export default (elements, options) => new inViewRegistry(elements, options);
+export default (elements, options, selector) => new inViewRegistry(elements, options, selector);

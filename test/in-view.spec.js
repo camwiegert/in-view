@@ -2,19 +2,17 @@ import test from 'ava';
 import inView from '../src/in-view';
 import Registry from '../src/registry';
 
-const view = new inView();
-
 test('inView is a function', t => {
-    t.true(typeof view === 'function');
+    t.true(typeof inView === 'function');
 });
 
 test('inView returns a registry', t => {
-    t.true(view('body').__proto__ === Registry([]).__proto__);
+    t.true(inView('body').__proto__ === Registry([]).__proto__);
 });
 
 test('inView returns existing registries', t => {
-    let registry = view('body');
-    t.true(registry === view('body'));
+    let registry = inView('body');
+    t.true(registry === inView('body'));
 });
 
 test('inView updates existing registry elements', t => {
@@ -25,11 +23,66 @@ test('inView updates existing registry elements', t => {
         );
     };
 
-    t.true(view('div').elements.length === 0);
+    t.true(inView('div').elements.length === 0);
 
     addDiv();
-    t.true(view('div').elements.length === 1);
+    t.true(inView('div').elements.length === 1);
 
+});
+
+test('inView overrides options', t => {
+    document.body.appendChild(
+        document.createElement('div')
+    );
+
+    t.true(inView('div', { offset: 123 }).options.offset === 123);
+});
+
+test('inView duplicates selector if options are different', t => {
+    document.body.appendChild(
+        document.createElement('img')
+    );
+
+    t.true(inView('img').selector === 'img');
+
+    t.true(inView('img', { threshold: 123 }).selector === 'img-1');
+});
+
+test('inView accepts Node', t => {
+    let dom;
+    document.body.appendChild(
+        dom = document.createElement('div')
+    );
+    t.true(inView(dom).elements.length ===1);
+});
+
+test('inView accepts NodeList', t => {
+    document.body.appendChild(
+        document.createElement('div')
+    );
+    let list = document.querySelectorAll('div');
+
+    t.true(inView(list).elements.length > 0);
+});
+
+test('inView accepts Array', t => {
+    document.body.appendChild(
+        document.createElement('div')
+    );
+    let list = document.querySelectorAll('div');
+    let arr = Array.from(list); //jquery like element list
+
+    t.true(inView(arr).elements.length > 0);
+});
+
+test('inView registry has stored the requested name', t => {
+    document.body.appendChild(
+        document.createElement('div')
+    );
+    let list = document.querySelectorAll('div');
+    let arr = Array.from(list);
+
+    t.regex(inView(arr).selector,/^Node\-/);
 });
 
 test.after(initBrowserEnv);
