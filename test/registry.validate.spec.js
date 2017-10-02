@@ -9,10 +9,10 @@ test('registry.validate returns defaults for non objects', t => {
 });
 
 test('registry.validate merges properties', t => {
-	let output = merge({}, defaults, {
-		threshold: 0.6
-	});
+    let output = merge({}, defaults, {
+        threshold: 0.6
+    });
     t.deepEqual(registry.validate({
-    	threshold: 0.6
+        threshold: 0.6
     }), output);
 });
