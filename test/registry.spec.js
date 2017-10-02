@@ -1,5 +1,5 @@
 import test from 'ava';
-import Registry from '../src/registry';
+import { Registry } from '../src/registry';
 
 const opts = {
     offset: {
@@ -8,7 +8,8 @@ const opts = {
         bottom: 0,
         left: 0
     },
-    threshold: 0
+    threshold: 0,
+    test: function(){}
 };
 
 test('Registry returns a registry', t => {

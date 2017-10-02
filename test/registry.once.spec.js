@@ -1,5 +1,5 @@
 import test from 'ava';
-import Registry from '../src/registry';
+import { Registry } from '../src/registry';
 
 test('Registry.once registers one handler to singles', t => {
 

@@ -1,5 +1,5 @@
 import test from 'ava';
-import Registry from '../src/registry';
+import { Registry } from '../src/registry';
 
 test('Registry.off removes all handlers ', t => {
 

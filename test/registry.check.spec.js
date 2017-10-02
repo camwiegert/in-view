@@ -1,5 +1,5 @@
 import test from 'ava';
-import Registry from '../src/registry';
+import { Registry } from '../src/registry';
 import { inViewport } from '../src/viewport';
 
 window.innerWidth = 1280;

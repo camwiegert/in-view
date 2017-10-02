@@ -1,6 +1,6 @@
 import test from 'ava';
 import inView from '../src/in-view';
-import Registry from '../src/registry';
+import { Registry } from '../src/registry';
 
 test('inView is a function', t => {
     t.true(typeof inView === 'function');
@@ -35,7 +35,12 @@ test('inView overrides options', t => {
         document.createElement('div')
     );
 
-    t.true(inView('div', { offset: 123 }).options.offset === 123);
+    t.deepEqual(inView('div', { offset: 123 }).options.offset, {
+        top: 123,
+        left: 123,
+        right: 123,
+        bottom: 123
+    });
 });
 
 test('inView duplicates selector if options are different', t => {
@@ -45,7 +50,7 @@ test('inView duplicates selector if options are different', t => {
 
     t.true(inView('img').selector === 'img');
 
-    t.true(inView('img', { threshold: 123 }).selector === 'img-1');
+    t.true(inView('img', { threshold: 0.5 }).selector === 'img-1');
 });
 
 test('inView accepts Node', t => {
@@ -83,6 +88,18 @@ test('inView registry has stored the requested name', t => {
     let arr = Array.from(list);
 
     t.regex(inView(arr).selector,/^Node\-/);
+});
+
+test('inView gets a selector by name', t => {
+    document.body.appendChild(
+        document.createElement('span')
+    );
+
+    inView('span', {
+        threshold: 0.6
+    });
+
+    t.true(inView.get('span').options.threshold === 0.6);
 });
 
 test.after(initBrowserEnv);
