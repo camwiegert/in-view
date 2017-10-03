@@ -80,6 +80,11 @@ test('inView accepts Array', t => {
     t.true(inView(arr).elements.length > 0);
 });
 
+test('inView returns for unsupported types', t => {
+    t.deepEqual(inView(true), undefined);
+    t.deepEqual(inView({}), undefined);
+});
+
 test('inView registry has stored the requested name', t => {
     document.body.appendChild(
         document.createElement('div')

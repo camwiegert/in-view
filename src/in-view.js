@@ -80,7 +80,7 @@ const inView = () => {
                 elements = [].slice.call(selector);
             } else {
                 // selector is not supported
-                return null;
+                return;
             }
             // create unique selector
             selector = 'Node-'+nodeCounter++;
