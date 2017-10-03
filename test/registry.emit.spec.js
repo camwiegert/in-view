@@ -22,6 +22,18 @@ test('Registry.emit calls each handler', t => {
 
 });
 
+test('Registry.emit passes the selector', t => {
+
+    let registry = Registry([], {}, '.foo');
+
+    registry.on('enter', (x, selector) => {
+        t.true(selector === '.foo');
+    });
+
+    registry.emit('enter', 'a');
+
+});
+
 test('Registry.emit removes once handlers', t => {
 
     let registry = Registry([]);
