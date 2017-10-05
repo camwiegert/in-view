@@ -27,7 +27,7 @@ const inView = () => {
     /**
      * Store count of nodes per node type
      */
-    let nodeCounter = [];
+    let nodeCounter = 0;
 
     /**
      * Store count of duplicated selectors
