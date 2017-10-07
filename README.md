@@ -19,6 +19,12 @@ Either download the [latest release](https://unpkg.com/in-view/dist/in-view.min.
 npm install --save in-view
 ```
 
+or include it via [jsDelivr CDN](https://www.jsdelivr.com/package/npm/in-view):
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/in-view@0/dist/in-view.min.js"></script>
+```
+
 ---
 
 ## Basic Usage
