@@ -85,6 +85,10 @@ test('inView returns for unsupported types', t => {
     t.deepEqual(inView({}), undefined);
 });
 
+test('inView accepts selector override for nodes', t => {
+    t.deepEqual(inView(document.querySelectorAll('div'), {}, 'foo').selector, 'foo');
+});
+
 test('inView registry has stored the requested name', t => {
     document.body.appendChild(
         document.createElement('div')

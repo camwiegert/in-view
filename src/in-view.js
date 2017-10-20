@@ -66,7 +66,7 @@ const inView = () => {
     * The main interface. Take a selector and retrieve
     * the associated registry or create a new one.
     */
-    let control = (selector, opts) => {
+    let control = (selector, opts, id) => {
 
         let elements;
 
@@ -83,7 +83,7 @@ const inView = () => {
                 return;
             }
             // create unique selector
-            selector = 'Node-'+nodeCounter++;
+            selector = typeof id === 'undefined' ? 'Node-'+nodeCounter++ : id;
         }
 
         // If the registry exists, update the elements.
@@ -94,7 +94,7 @@ const inView = () => {
             let o = sel.validate(opts);
             // check that the options have not changed
             if (isEqual(o, sel.options)) {
-                if (selector.substr(0,4) === 'Node') {
+                if (selector.substr(0,4) === 'Node' || selector === id) {
                     sel.elements.concat(elements);
                 } else {
                     sel.elements = elements;
