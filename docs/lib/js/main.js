@@ -10,12 +10,7 @@ const getRandomInt = (min, max) => {
 const createDot = () => {
   let dot = document.createElement('div');
   dot.className = 'dot';
-
-  const translateX = getRandomInt(0, field.offsetWidth);
-  const translateY = getRandomInt(0, field.offsetHeight);
-
-  dot.style.transform = `translate(${translateX}px, ${translateY}px)`;
-
+  dot.style.transform = `translate(${getRandomInt(0, 100)}%, ${getRandomInt(0, 100)}%)`;
   return dot;
 }
 
