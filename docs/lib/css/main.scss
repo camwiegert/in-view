@@ -97,19 +97,18 @@ a {
     z-index: 1;
 }
 
-.dot {
+.dot::after {
+    display: block;
+    content: " ";
     background-color: rgba($color-red, 0.75);
     border-radius: 50%;
     height: 2.5rem;
-    left: 0;
-    position: absolute;
-    top: 0;
     width: 2.5rem;
     -webkit-transition: background-color 0.2s $easing-outExpo, -webkit-transform 0.2s $easing-outExpo;
             transition: background-color 0.2s $easing-outExpo, transform 0.2s $easing-outExpo;
 }
 
-.dot.in-view {
+.dot.in-view::after {
     background-color: rgba($color-blue, 0.75);
     -webkit-transform: scale(2);
             transform: scale(2);
